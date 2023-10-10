@@ -1078,6 +1078,11 @@ ol ul {
   transform: translateZ(0);
 }
 
+.rbt-user-wrapper .rbt-user-menu-list-wrapper {
+  right: 0;
+  left: auto;
+}
+
 .rbt-header .mainmenu-nav .mainmenu > li .submenu > li:hover > .submenu, .rbt-header .mainmenu-nav .mainmenu li.with-megamenu:hover .rbt-megamenu, .rbt-header .mainmenu-nav .mainmenu li.has-dropdown:hover > .submenu, .rbt-user-wrapper:hover .rbt-user-menu-list-wrapper, .rbt-category-menu-wrapper:hover .category-dropdown-menu, ul.rbt-dropdown-menu li:hover .sub-menu {
   top: 100%;
   visibility: visible;
