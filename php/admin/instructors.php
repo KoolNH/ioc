@@ -63,7 +63,6 @@
             <div class="row">
                 <div class="col-lg-12">
 
-
                     <div class="row g-5">
                         <div class="col-lg-3">
                             <!-- Start Dashboard Sidebar  -->
@@ -72,11 +71,11 @@
                         </div>
 
                         <div class="col-lg-9">
-                            <div class="rbt-dashboard-content bg-color-white rbt-shadow-box mb--60">
+                        <div class="rbt-dashboard-content bg-color-white rbt-shadow-box mb--60">
                             <div class="content">
 
 <div class="section-title">
-    <h4 class="rbt-title-style-3">All Courses
+    <h4 class="rbt-title-style-3">All Instructors
     </h4>
 
     <form action="#" class="row row--15">
@@ -103,35 +102,35 @@
 
 
 <div class="tab-content">
-<div class="tab-pane fade active show" id="publish-4" role="tabpanel" aria-labelledby="publish-tab-4">
+    <div class="tab-pane fade active show" id="publish-4" role="tabpanel" aria-labelledby="publish-tab-4">
         <div class="row g-5">
-            <!-- Start Single Course  -->
-            <?php for($i=0; $i<9; $i++):?>
-            <div class="col-lg-4 col-md-6 col-12">
-                <div class="rbt-card variation-01 rbt-hover">
-                    <div class="rbt-card-img">
-                        <a href="/admin/course.php">
-                            <img src="/assets/images/course/course-online-01.jpg" alt="Card image">
-                        </a>
-                    </div>
-                    <div class="rbt-card-body">
-                        <div class="rbt-card-top">
-
-     
+            <?php for($i=0; $i<9; $i++): ?>
+                <!-- Start Single Course  -->
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="rbt-card variation-01 rbt-hover">
+                        <div class="rbt-card-img">
+                            <a href="course-details.html">
+                                <img src="/assets/images/course/course-online-01.jpg" alt="Card image">
+                            </a>
                         </div>
-                        <h4 class="rbt-card-title"><a href="/admin/course.php">React Front To Back</a>
-                        </h4>
-                        <ul class="rbt-meta">
-                            <li><i class="feather-book"></i>20 Lessons</li>
-                            <li><i class="feather-users"></i>40 Students</li>
-                        </ul>
+                        <div class="rbt-card-body">
+                            <div class="rbt-card-top">
+
+        
+                            </div>
+                            <h4 class="rbt-card-title"><a href="course-details.html">Jack</a>
+                            </h4>
+                            <ul class="rbt-meta">
+                                <li><i class="feather-book"></i>20 Courses</li>
+                                <li><i class="feather-users"></i>40 Students</li>
+                            </ul>
 
 
+                        </div>
                     </div>
                 </div>
-            </div>
+                <!-- End Single Course  -->
             <?php endfor; ?>
-        
         </div>
     </div>
 

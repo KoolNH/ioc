@@ -12,24 +12,7 @@
                 
             </div>
             
-            <div class="rbt-main-navigation d-none d-xl-block">
-                <nav class="mainmenu-nav">
-                    <ul class="mainmenu">
-                        <li class="">
-                            <a href="#">Home </a>
-                            
-                        </li><li class="">
-                            <a href="#">Course </a>
-                        </li>
-                        <li class="">
-                            <a href="#">Instructor </a>
-                        </li><li class="">
-                            <a href="#">Leaner </a>
-                        </li>    
-                        
-                    </ul>
-                </nav>
-            </div>
+
             
             <div class="header-right">
                 
@@ -54,39 +37,22 @@
                                     </div>
                                     <div class="admin-info">
                                         <span class="name">Nipa Bali</span>
-                                        <a class="rbt-btn-link color-primary" href="profile.html">View Profile</a>
+                                        
                                     </div>
                                 </div>
-                                <ul class="user-list-wrapper">
-                                    <li>
-                                        <a href="instructor-dashboard.html">
-                                            <i class="feather-home"></i>
-                                            <span>My Dashboard</span>
-                                        </a>
-                                    </li>
- 
-                                    <li>
-                                        <a href="instructor-enrolled-courses.html">
-                                            <i class="feather-shopping-bag"></i>
-                                            <span>Enrolled Courses</span>
-                                        </a>
-                                    </li>
-
-            
-
-                                </ul>
+                  
                                 <hr class="mt--10 mb--10">
                                 
 
                                 <ul class="user-list-wrapper">
                                     <li>
-                                        <a href="instructor-settings.html">
+                                        <a href="/admin/change-password.php">
                                             <i class="feather-settings"></i>
                                             <span>Change Passwrod</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="index.html">
+                                        <a href="/logout.php">
                                             <i class="feather-log-out"></i>
                                             <span>Logout</span>
                                         </a>

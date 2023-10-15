@@ -103,14 +103,14 @@
 
 
 <div class="tab-content">
-<div class="tab-pane fade active show" id="publish-4" role="tabpanel" aria-labelledby="publish-tab-4">
+    <div class="tab-pane fade active show" id="publish-4" role="tabpanel" aria-labelledby="publish-tab-4">
         <div class="row g-5">
             <!-- Start Single Course  -->
             <?php for($i=0; $i<9; $i++):?>
             <div class="col-lg-4 col-md-6 col-12">
                 <div class="rbt-card variation-01 rbt-hover">
                     <div class="rbt-card-img">
-                        <a href="/admin/course.php">
+                        <a href="course-details.html">
                             <img src="/assets/images/course/course-online-01.jpg" alt="Card image">
                         </a>
                     </div>
@@ -119,7 +119,7 @@
 
      
                         </div>
-                        <h4 class="rbt-card-title"><a href="/admin/course.php">React Front To Back</a>
+                        <h4 class="rbt-card-title"><a href="course-details.html">React Front To Back</a>
                         </h4>
                         <ul class="rbt-meta">
                             <li><i class="feather-book"></i>20 Lessons</li>

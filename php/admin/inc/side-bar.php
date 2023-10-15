@@ -8,11 +8,11 @@
                                             </div>
                                             <nav class="mainmenu-nav">
                                                 <ul class="dashboard-mainmenu rbt-default-sidebar-list">
-                                                    <li><a href="instructor-dashboard.html"><i class="feather-home"></i><span>Dashboard</span></a></li>
-                                                    <li><a href="instructor-profile.html"><i class="feather-user"></i><span>My Profile</span></a></li>
-                                                    <li><a href="instructor-enrolled-courses.html"><i class="feather-book-open"></i><span>Courses</span></a></li>
-                                                    <li><a href="instructor-enrolled-courses.html"><i class="feather-book-open"></i><span>Leaner</span></a></li>
-                                                    <li><a href="instructor-enrolled-courses.html"><i class="feather-book-open"></i><span>Instructor</span></a></li>
+                                                    <li><a href="/admin"><i class="feather-home"></i><span>Dashboard</span></a></li>
+                                                    <li><a href="/admin/profile.php"><i class="feather-user"></i><span>My Profile</span></a></li>
+                                                    <li><a href="/admin/courses.php"><i class="feather-book-open"></i><span>Courses</span></a></li>
+                                                    <li><a href="/admin/learners.php"><i class="feather-book-open"></i><span>Learner</span></a></li>
+                                                    <li><a href="/admin/instructors.php"><i class="feather-book-open"></i><span>Instructor</span></a></li>
 
                                                 </ul>
                                             </nav>
