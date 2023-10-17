@@ -1,18 +1,29 @@
 <?php
-// connect db
-// query all learners
 
-$learners = [
-    [
-    'avatar' => "/assets/images/course/course-online-01.jpg",
-    'name' => 'Dennis',
-    ], // learner 1
+include('inc/db-connect.php');
 
-    [
-    'avatar' => "/assets/images/course/course-online-02.jpg",
-    'name' => 'Lan',
-    ], // learner 2
-]
+$name = "";
+$phone = "";
+
+// query db
+  $sql ="SELECT * FROM `users` WHERE role='learner' ";
+  
+  if(isset($_GET['name'])) {
+    $name = $_GET['name'];
+
+    $sql = $sql . " AND name LIKE '%$name%'";
+  
+  }
+  
+  if(isset($_GET['phone'])) {
+    $phone = $_GET['phone'];
+
+    $sql = $sql . " AND phone LIKE '%$phone%'";
+  
+  }
+
+  $result = $conn->query($sql);
+  $learners = $result->fetchAll();
 
 ?>
 
@@ -96,11 +107,18 @@ $learners = [
                                             <h4 class="rbt-title-style-3">All Learners
                                             </h4>
                                             
-                                            <form action="#" class="row row--15">
+                                            <form action="" class="row row--15">
                                                 <div class="col-lg">
-                                                    <div class="form-group">
-                                                        <input name="con_name" type="text">
+                                                    <div class="form-group focused">
+                                                        <input name="name" type="text" value = "<?php echo $name ?>">
                                                         <label>Name</label>
+                                                        <span class="focus-border"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg">
+                                                    <div class="form-group focused">
+                                                        <input name="phone" type="text"value = "<?php echo $phone ?>">
+                                                        <label>Phone</label>
                                                         <span class="focus-border"></span>
                                                     </div>
                                                 </div>
@@ -122,7 +140,12 @@ $learners = [
                                         <div class="tab-content">
                                             <div class="tab-pane fade active show" id="publish-4" role="tabpanel" aria-labelledby="publish-tab-4">
                                                 <div class="row g-5">
-                                                    <?php foreach($learners as $learner): ?>
+                                            
+                                                <?php if(count($learners) == 0): ?>
+                                                    <p class="text-danger">No Information</p>
+                                                <?php endif;?>
+                                                
+                                                <?php foreach($learners as $learner): ?>
                                                     <!-- Start Single Course  -->
                                                     <div class="col-lg-4 col-md-6 col-12">
                                                         <div class="rbt-card variation-01 rbt-hover">
@@ -140,7 +163,7 @@ $learners = [
                                                                 </h4>
                                                                 <ul class="rbt-meta">
                                                                     <li><i class="feather-book"></i>20 Courses</li>
-                                                                    <li><i class="feather-users"></i>40 Students</li>
+   
                                                                 </ul>
                                                                 
                                                                 
