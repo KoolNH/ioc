@@ -8,12 +8,15 @@ $phone = "";
 
 // query db
 $sql ="SELECT * FROM `users` WHERE role='instructor'";
+
+// search by name
 if(isset($_GET['name'])) {
     $name = $_GET['name'];
     
     $sql = $sql . " AND name LIKE '%$name%'";
     
 }
+
 
 if(isset($_GET['phone'])) {
     $phone = $_GET['phone'];
@@ -140,7 +143,7 @@ $instructors = $result->fetchAll();
                                         <div class="tab-content">
                                             <div class="tab-pane fade active show" id="publish-4" role="tabpanel" aria-labelledby="publish-tab-4">
                                                 <div class="row g-5">
-                                                    
+
                                                     <?php if(count($instructors) == 0): ?>
                                                         <p class="text-danger">No Information</p>
                                                     <?php endif;?>

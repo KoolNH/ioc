@@ -2,28 +2,39 @@
 
 include('inc/db-connect.php');
 
+
+// query db
+$sql ="SELECT * FROM `users` WHERE role='learner' ";
+
+/* search */
 $name = "";
 $phone = "";
 
-// query db
-  $sql ="SELECT * FROM `users` WHERE role='learner' ";
-  
-  if(isset($_GET['name'])) {
+// search by name
+if(isset($_GET['name'])) {
     $name = $_GET['name'];
-
+    
     $sql = $sql . " AND name LIKE '%$name%'";
-  
-  }
-  
-  if(isset($_GET['phone'])) {
+    
+}
+
+// search by phone
+if(isset($_GET['phone'])) {
     $phone = $_GET['phone'];
-
+    
     $sql = $sql . " AND phone LIKE '%$phone%'";
-  
-  }
+    
+}
 
-  $result = $conn->query($sql);
-  $learners = $result->fetchAll();
+/* pagination */
+$page = $_GET['page'];
+$limit = 1;
+$offset = ($page - 1) * $limit;
+
+$sql = $sql . " LIMIT $limit OFFSET $offset";
+
+$result = $conn->query($sql);
+$learners = $result->fetchAll();
 
 ?>
 
@@ -140,12 +151,12 @@ $phone = "";
                                         <div class="tab-content">
                                             <div class="tab-pane fade active show" id="publish-4" role="tabpanel" aria-labelledby="publish-tab-4">
                                                 <div class="row g-5">
-                                            
-                                                <?php if(count($learners) == 0): ?>
+                                                    
+                                                    <?php if(count($learners) == 0): ?>
                                                     <p class="text-danger">No Information</p>
-                                                <?php endif;?>
-                                                
-                                                <?php foreach($learners as $learner): ?>
+                                                    <?php endif;?>
+                                                    
+                                                    <?php foreach($learners as $learner): ?>
                                                     <!-- Start Single Course  -->
                                                     <div class="col-lg-4 col-md-6 col-12">
                                                         <div class="rbt-card variation-01 rbt-hover">
@@ -163,7 +174,7 @@ $phone = "";
                                                                 </h4>
                                                                 <ul class="rbt-meta">
                                                                     <li><i class="feather-book"></i>20 Courses</li>
-   
+                                                                    
                                                                 </ul>
                                                                 
                                                                 
@@ -180,9 +191,9 @@ $phone = "";
                                                     <nav>
                                                         <ul class="rbt-pagination">
                                                             <li><a href="#" aria-label="Previous"><i class="feather-chevron-left"></i></a></li>
-                                                            <li><a href="#">1</a></li>
-                                                            <li class="active"><a href="#">2</a></li>
-                                                            <li><a href="#">3</a></li>
+                                                            <li class="<?php if($page == 1) { echo 'active'; } ?>"><a href="?page=1">1</a></li>
+                                                            <li class="<?php if($page == 2) { echo 'active'; } ?>"><a href="?page=2">2</a></li>
+                                                            <li class="<?php if($page == 3) { echo 'active'; } ?>"><a href="?page=3">3</a></li>
                                                             <li><a href="#" aria-label="Next"><i class="feather-chevron-right"></i></a></li>
                                                         </ul>
                                                     </nav>
