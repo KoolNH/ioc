@@ -3,11 +3,15 @@
 
 include('inc/db-connect.php');
 
-$name = "";
-$phone = "";
+
+
 
 // query db
 $sql ="SELECT * FROM `users` WHERE role='instructor'";
+
+// search
+$name = "";
+$phone = "";
 
 // search by name
 if(isset($_GET['name'])) {
@@ -24,6 +28,14 @@ if(isset($_GET['phone'])) {
     $sql = $sql . " AND phone LIKE '%$phone%'";
     
 }
+
+/* pagination */
+$page = $_GET['page'];
+$limit = 1;
+$offset = ($page - 1) * $limit;
+
+$sql = $sql . " LIMIT $limit OFFSET $offset";
+
 $result = $conn->query($sql);
 $instructors = $result->fetchAll();
 
@@ -182,10 +194,10 @@ $instructors = $result->fetchAll();
                                                 <div class="col-lg-12 mt--60">
                                                     <nav>
                                                         <ul class="rbt-pagination">
-                                                            <li><a href="#" aria-label="Previous"><i class="feather-chevron-left"></i></a></li>
-                                                            <li><a href="#">1</a></li>
-                                                            <li class="active"><a href="#">2</a></li>
-                                                            <li><a href="#">3</a></li>
+                                                        <li><a href="#" aria-label="Previous"><i class="feather-chevron-left"></i></a></li>
+                                                            <li class="<?php if($page == 1) { echo 'active'; } ?>"><a href="?page=1">1</a></li>
+                                                            <li class="<?php if($page == 2) { echo 'active'; } ?>"><a href="?page=2">2</a></li>
+                                                            <li class="<?php if($page == 3) { echo 'active'; } ?>"><a href="?page=3">3</a></li>
                                                             <li><a href="#" aria-label="Next"><i class="feather-chevron-right"></i></a></li>
                                                         </ul>
                                                     </nav>
