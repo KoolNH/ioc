@@ -6,7 +6,7 @@
                         <div class="footer-widget">
                             <div class="logo">
                                 <a href="index.html">
-                                    <img src="assets/images/logo/logo.png" alt="Edu-cause">
+                                    <img src="/assets/images/logo/logo.png" alt="Edu-cause">
                                 </a>
                             </div>
 
@@ -63,7 +63,7 @@
 
                     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                         <div class="footer-widget">
-                            <img src ="assets/images/course/1.jpg">
+                            <img src ="/assets/images/course/1.jpg">
                         
 
 

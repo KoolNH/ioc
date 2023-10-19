@@ -5,7 +5,7 @@
                 <div class="header-info">
                     <div class="logo">
                         <a href="index.html">
-                            <img src="assets/images/logo/logo.png" alt="Education Logo Images">
+                            <img src="/assets/images/logo/logo4.png" alt="Education Logo Images">
                         </a>
                     </div>
                 </div>

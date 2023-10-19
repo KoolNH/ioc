@@ -1,7 +1,7 @@
 
 <?php
 
-include('inc/db-connect.php');
+include('../inc/db-connect.php');
 
 
 
@@ -18,7 +18,6 @@ if(isset($_GET['name'])) {
     $name = $_GET['name'];
     
     $sql = $sql . " AND name LIKE '%$name%'";
-    
 }
 
 
@@ -26,18 +25,32 @@ if(isset($_GET['phone'])) {
     $phone = $_GET['phone'];
     
     $sql = $sql . " AND phone LIKE '%$phone%'";
-    
 }
 
 /* pagination */
-$page = $_GET['page'];
-$limit = 1;
-$offset = ($page - 1) * $limit;
+$page = 1;
+if(isset($_GET['page'])) {
+    $page = $_GET['page'];
+}
 
-$sql = $sql . " LIMIT $limit OFFSET $offset";
+
+$limit = 1;
 
 $result = $conn->query($sql);
 $instructors = $result->fetchAll();
+$noItems = count($instructors);
+
+$noPages = $noItems / $limit;
+
+$offset = ($page - 1) * $limit; // skip items -> show in next page //
+
+$sql = $sql . " LIMIT $limit OFFSET $offset";
+
+
+$result = $conn->query($sql);
+$instructors = $result->fetchAll();
+
+
 
 ?>
 
@@ -54,27 +67,7 @@ $instructors = $result->fetchAll();
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.png">
-    
-    <!-- CSS
-        ============================================ -->
-        <link rel="stylesheet" href="/assets/css/vendor/bootstrap.min.css">
-        <link rel="stylesheet" href="/assets/css/vendor/slick.css">
-        <link rel="stylesheet" href="/assets/css/vendor/slick-theme.css">
-        <link rel="stylesheet" href="/assets/css/plugins/sal.css">
-        <link rel="stylesheet" href="/assets/css/plugins/feather.css">
-        <link rel="stylesheet" href="/assets/fontawesome-free-5.5.0-web/css/fontawesome.min.css">
-        <link rel="stylesheet" href="/assets/css/plugins/euclid-circulara.css">
-        <link rel="stylesheet" href="/assets/css/plugins/swiper.css">
-        <link rel="stylesheet" href="/assets/css/plugins/magnify.css">
-        <link rel="stylesheet" href="/assets/css/plugins/odometer.css">
-        <link rel="stylesheet" href="/assets/css/plugins/animation.css">
-        <link rel="stylesheet" href="/assets/css/plugins/bootstrap-select.min.css">
-        <link rel="stylesheet" href="/assets/css/plugins/jquery-ui.css">
-        <link rel="stylesheet" href="/assets/css/plugins/magnigy-popup.min.css">
-        <link rel="stylesheet" href="/assets/css/plugins/plyr.css">
-        <link rel="stylesheet" href="/assets/css/style.css">
+    <?php include('../inc/css.php');?>
     </head>
     
     <body>
@@ -194,11 +187,17 @@ $instructors = $result->fetchAll();
                                                 <div class="col-lg-12 mt--60">
                                                     <nav>
                                                         <ul class="rbt-pagination">
-                                                        <li><a href="#" aria-label="Previous"><i class="feather-chevron-left"></i></a></li>
-                                                            <li class="<?php if($page == 1) { echo 'active'; } ?>"><a href="?page=1">1</a></li>
-                                                            <li class="<?php if($page == 2) { echo 'active'; } ?>"><a href="?page=2">2</a></li>
-                                                            <li class="<?php if($page == 3) { echo 'active'; } ?>"><a href="?page=3">3</a></li>
-                                                            <li><a href="#" aria-label="Next"><i class="feather-chevron-right"></i></a></li>
+                                                        <?php if($page != 1): ?>
+                                                            <li><a href="?page=<?php echo $page - 1  ?>&name=<?php echo $name;?>&phone=<?php echo $phone;?>" aria-label="Previous"><i class="feather-chevron-left"></i></a></li>
+                                                        <?php endif; ?>
+
+                                                        <?php for($i=1; $i <= $noPages; $i++): ?>
+                                                            <li class="<?php if($page == $i) { echo 'active'; } ?>"><a href="?page=<?php echo $i; ?>&name=<?php echo $name;?>&phone=<?php echo $phone;?>"><?php echo $i;?></a></li>
+                                                        <?php endfor; ?>
+
+                                                        <?php if($page != $noPages): ?>          
+                                                            <li><a href="?page=<?php echo $page + 1  ?>&name=<?php echo $name;?>&phone=<?php echo $phone;?>" aria-label="Next"><i class="feather-chevron-right"></i></a></li>
+                                                        <?php endif; ?>    
                                                         </ul>
                                                     </nav>
                                                 </div>
