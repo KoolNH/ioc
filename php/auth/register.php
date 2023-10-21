@@ -2,37 +2,83 @@
 include('../inc/db-connect.php');
 
 $errors = [];
+$username = '';
+$phone = '';
+$email = '';
+$fullName = '';
 
 
 if (!empty($_POST)) {
     // get data
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $name = $_POST['fullName'];
+    $fullName = $_POST['fullName'];
     $phone = $_POST['phone'];
+    $email = $_POST['email'];
+    $confirm = $_POST['confirmPassword'];
+    
     //
 
     // clean data
     $username = trim($username);
     $password = trim($password);
+    $fullName = trim($fullName);
+    $phone = trim($phone);
+    $email = trim($email);
     //
     
     
     /* validate data */
     // validate username
     if (empty($username)) {
-        $errors['username'] = 'Pls enter username!';
+        $errors['username'] = 'Please enter username!';
+    } else {
+        // validate if exist
+        // get user with username
+        $sql ="SELECT * FROM `users` WHERE username='$username' ";
+        $result = $conn->query($sql);
+        $user = $result->fetch();
+
+        // if exists
+        if($user != false) {
+            $errors['username'] = 'User alreay exists' ;
+        }
     }
     
-    // TODO: validate if exist
 
     if (empty($password)) {
-        $errors['password'] = 'Pls enter password!';
+        $errors['password'] = 'Please enter password!';
     }
 
     // confirm password = password
 
-    // TODO: format email, phone
+    if ($confirm != $password) {
+        $errors['confirmPassword'] = 'Confirm passwrod not match';
+    }
+
+    if (empty($fullName)) {
+        $errors['fullName'] = 'Please enter Full Name!';
+    }
+    
+    if (empty($phone)) {
+        $errors['phone'] = 'Please enter Phone!';
+    } else {
+        $phonePattern = '/^\d{10,15}$/';
+        if (!preg_match($phonePattern, $phone)) {
+        $errors['phone'] = 'Invalid phone!';
+        }
+    }
+    
+    // check if empty
+    if (empty($email)) {
+        $errors['email'] = 'Please enter Email!';
+    } else {
+        // check format email
+        $emailPattern = '/^\S+@\S+\.\S+$/'; 
+        if (!preg_match($emailPattern, $email)) {
+            $errors['email'] = 'Invalid email!';
+        }
+    }
     
     // if valid
     if (count($errors) == 0) {
@@ -43,7 +89,7 @@ if (!empty($_POST)) {
         $result = $conn->query($sql);
 
         // redirect to /enrolled courses
-        header('Location: /dashboard.php');
+        header('Location: /auth/login.php');
     }
     
 }
@@ -111,7 +157,7 @@ if (!empty($_POST)) {
                                             </div>
                                             
                                             <div class="col-lg-12 col-12">
-                                                <input id="" placeholder="Username" type="text" name="username">
+                                                <input id="" placeholder="Username" type="text" name="username" value="<?php echo $username; ?>" required>
 
                                                 <?php if (isset($errors['username'])): ?>
                                                     <small class="text-danger"><?php echo $errors['username']; ?></small>
@@ -121,33 +167,40 @@ if (!empty($_POST)) {
                                             
                                             
                                             <div class="col-lg-6 col-12">
-                                                <input id="new-pwd" placeholder="Password" type="password" name="password">
+                                                <input id="new-pwd" placeholder="Password" type="password" name="password" required>
                                                 <?php if (isset($errors['password'])): ?>
                                                     <small class="text-danger"><?php echo $errors['password']; ?></small>
                                                 <?php endif; ?>
                                             </div>
                                             
                                             <div class="col-lg-6 col-12">
-                                                <input id="confirm-pwd" placeholder="Confirm Password" type="password" name="confirmPassword">
+                                                <input id="confirm-pwd" placeholder="Confirm Password" type="password" name="confirmPassword" required>
+                                                <?php if (isset($errors['confirmPassword'])): ?>
+                                                    <small class="text-danger"><?php echo $errors['confirmPassword']; ?></small>
+                                                <?php endif; ?>
                                             </div>
                                             
                                             <div class="col-lg-12 col-12">
-                                                <input id="" placeholder="Full Name" type="text" name="fullName">
+                                                <input id="" placeholder="Full Name" type="text" name="fullName" value="<?php echo $fullName; ?>" required>
+                                                <?php if (isset($errors['fullName'])): ?>
+                                                    <small class="text-danger"><?php echo $errors['fullName']; ?></small>
+                                                <?php endif; ?>
                                             </div>   
                                             
                                             <div class="col-lg-12 col-12">
-                                                <input id="" placeholder="Phone" type="text" name="phone">
+                                                <input id="" placeholder="Phone" type="text" name="phone" value="<?php echo $phone; ?>" required>
+                                                <?php if (isset($errors['phone'])): ?>
+                                                    <small class="text-danger"><?php echo $errors['phone']; ?></small>
+                                                <?php endif; ?>
                                             </div>  
                                             
                                             
                                             <div class="col-lg-12 col-12">
-                                                <input id="" placeholder="Email" type="text" name="email">
-                                            </div>   
-                                            
-                                            
-                                            
-                                            
-                                            
+                                                <input id="" placeholder="Email" type="email" name="email" value="<?php echo $email; ?>" required>
+                                                <?php if (isset($errors['email'])): ?>
+                                                    <small class="text-danger"><?php echo $errors['email']; ?></small>
+                                                <?php endif; ?>
+                                            </div>  
                                             
                                             
                                             <div class="col-12">

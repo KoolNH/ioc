@@ -1,3 +1,11 @@
+<?php
+    $loggedIn = false;
+
+    if(isset($_SESSION['username'])) {
+        $loggedIn = true;
+    }
+?>
+
 <div class="rbt-header-wrapper header-space-betwween header-sticky">
     <div class="container-fluid">
         <div class="mainbar-row rbt-navigation-center align-items-center">
@@ -35,66 +43,74 @@
                 
                 <!-- Navbar Icons -->
                 <ul class="quick-access">
-                    <li class="access-icon">
-                        
-                        <a class="search-trigger-active rbt-round-btn" href="#">
-                            <i class="feather-search"></i>
-                        </a>
-                    </li>
                     
+                    <?php if($loggedIn == true): ?>
                     
-                    
-                    <li class="account-access rbt-user-wrapper d-none d-xl-block">
-                        <a href="#"><i class="feather-user"></i>Admin</a>
-                        <div class="rbt-user-menu-list-wrapper">
-                            <div class="inner">
-                                <div class="rbt-admin-profile">
-                                    <div class="admin-thumbnail">
-                                        <img src="assets/images/team/avatar.jpg" alt="User Images">
+                        <li class="account-access rbt-user-wrapper d-none d-xl-block">
+                            <a href="#"><i class="feather-user"></i>Admin</a>
+                            <div class="rbt-user-menu-list-wrapper">
+                                <div class="inner">
+                                    <div class="rbt-admin-profile">
+                                        <div class="admin-thumbnail">
+                                            <img src="assets/images/team/avatar.jpg" alt="User Images">
+                                        </div>
+                                        <div class="admin-info">
+                                            <span class="name">Nipa Bali</span>
+                                            <a class="rbt-btn-link color-primary" href="profile.html">View Profile</a>
+                                        </div>
                                     </div>
-                                    <div class="admin-info">
-                                        <span class="name">Nipa Bali</span>
-                                        <a class="rbt-btn-link color-primary" href="profile.html">View Profile</a>
-                                    </div>
+                                    <ul class="user-list-wrapper">
+                                        <li>
+                                            <a href="instructor-dashboard.html">
+                                                <i class="feather-home"></i>
+                                                <span>My Dashboard</span>
+                                            </a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a href="instructor-enrolled-courses.html">
+                                                <i class="feather-shopping-bag"></i>
+                                                <span>Enrolled Courses</span>
+                                            </a>
+                                        </li>
+                                        
+                                        
+                                        
+                                    </ul>
+                                    <hr class="mt--10 mb--10">
+                                    
+                                    
+                                    <ul class="user-list-wrapper">
+                                        <li>
+                                            <a href="/auth/change-password.php">
+                                                <i class="feather-settings"></i>
+                                                <span>Change Passwrod</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/auth/logout.php">
+                                                <i class="feather-log-out"></i>
+                                                <span>Logout</span>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <ul class="user-list-wrapper">
-                                    <li>
-                                        <a href="instructor-dashboard.html">
-                                            <i class="feather-home"></i>
-                                            <span>My Dashboard</span>
-                                        </a>
-                                    </li>
- 
-                                    <li>
-                                        <a href="instructor-enrolled-courses.html">
-                                            <i class="feather-shopping-bag"></i>
-                                            <span>Enrolled Courses</span>
-                                        </a>
-                                    </li>
-
-            
-
-                                </ul>
-                                <hr class="mt--10 mb--10">
-                                
-
-                                <ul class="user-list-wrapper">
-                                    <li>
-                                        <a href="instructor-settings.html">
-                                            <i class="feather-settings"></i>
-                                            <span>Change Passwrod</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html">
-                                            <i class="feather-log-out"></i>
-                                            <span>Logout</span>
-                                        </a>
-                                    </li>
-                                </ul>
                             </div>
+                        </li>
+                     
+                    <?php else: ?>
+                        <div class="rbt-btn-wrapper d-none d-xl-block">
+                            <a class="rbt-btn btn-border-gradient radius-round btn-sm hover-transform-none" href="/auth/login.php">
+                                <span data-text="Login">Login</span>
+                            </a>
                         </div>
-                    </li>
+                        &nbsp;
+                        <div class="rbt-btn-wrapper d-none d-xl-block">
+                            <a class="rbt-btn radius-round btn-sm hover-transform-none" href="/auth/register.php">
+                                <span data-text="Login">Register</span>
+                            </a>
+                        </div>
+                    <?php endif; ?>
                     
                     <li class="access-icon rbt-user-wrapper d-block d-xl-none">
                         <a class="rbt-round-btn" href="#"><i class="feather-user"></i></a>

@@ -25,8 +25,6 @@
                         </a>
                     </li>
                     
-                    
-                    
                     <li class="account-access rbt-user-wrapper d-none d-xl-block">
                         <a href="#"><i class="feather-user"></i>Admin</a>
                         <div class="rbt-user-menu-list-wrapper">

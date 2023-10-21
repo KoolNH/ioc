@@ -1,65 +1,71 @@
 <?php
 session_start();
 
-include('./_check-loggedin.php');
-
-
 include('../inc/db-connect.php');
 
 $errors = [];
-
+$username = '';
 
 
 if (!empty($_POST)) {
     // get data
-    $oldPassword = $_POST['oldPassword'];
+    $username = $_POST['username'];
     $password = $_POST['password'];
-    $confirm = $_POST['confirmPassword'];
-    
+ 
+    //
+
     // clean data
+    $username = trim($username);
     $password = trim($password);
+   
+    //
     
     
     /* validate data */
-    if (empty($oldPassword)) {
-        $errors['oldPassword'] = 'Please enter current password!';
+    // validate username
+    if (empty($username)) {
+        $errors['username'] = 'Please enter username!';
     }
-
-    // get user with username\
-    $username = $_SESSION['username'];
-
-    $sql ="SELECT * FROM `users` WHERE username='$username' ";
-    $result = $conn->query($sql);
-    $user = $result->fetch();
-
-    // compute hashed password
-    $oldPassword = sha1($oldPassword);
-
-    // check if hashed password == user password
-    if($oldPassword == $user['password']) {
-        // TODO
-    }
-
-    if (empty($password)) {
-        $errors['password'] = 'Please enter new password!';
-    }
-
-    // confirm password = password
-    if ($confirm != $password) {
-        $errors['confirmPassword'] = 'Confirm passwrod not match';
-    }
-
     
+    // validate if exist
+    if (empty($password)) {
+        $errors['password'] = 'Please enter password!';
+    }
+
+  
     // if valid
     if (count($errors) == 0) {
-        $password = sha1($password);
-        
-        // update db
-        $sql = "UPDATE `users` SET `password` = '$password' WHERE `users`.`username` = '$username';";
+        // get user with username
+        $sql ="SELECT * FROM `users` WHERE username='$username' ";
         $result = $conn->query($sql);
+        $user = $result->fetch();
 
-        // redirect to /enrolled courses
-        header('Location: /auth/login.php');
+        
+        // if user exist
+        if($user != false) {
+             // compute hashed password
+             $password = sha1($password);
+
+             // check if hashed password == user password
+             if($password == $user['password']) {
+                 // if matched
+
+                 // create session
+                 $_SESSION['username'] = $user['username'];
+                 
+                 // redirect to dashboard
+                header('Location:/dashboard.php');                 
+             } else {
+                 // invalid credentials
+                 $errors['password'] = 'Incorect PassWord!';
+             }
+        // else 
+        } else {
+            $errors['username'] = 'Username not exists! Please register account';
+        }
+            // invalid credentials
+
+    
     }
     
 }
@@ -112,43 +118,41 @@ if (!empty($_POST)) {
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row g-5">
-                        <div class="col-lg-2">
+                        <div class="col-lg-3">
                         </div>
                         
-                        <div class="col-lg-8">
+                        <div class="col-lg-6">
                             <div class="rbt-my-account-inner">
                                 <div class="account-details-form">
                                     <form action="" method="post">
                                         <div class="row g-5">
                                             
                                             
-                                            <div class="col-12">
-                                                <h4>Change Password</h4>
+                                            <div class="col-12 text-center" >
+                                                <h4>Login</h4>
                                             </div>
                                             
                                             <div class="col-lg-12 col-12">
-                                                <input id="new-pwd" placeholder="Current Password" type="password" name="oldPassword" >
-                                                <?php if (isset($errors['oldPassword'])): ?>
-                                                    <small class="text-danger"><?php echo $errors['oldPassword']; ?></small>
+                                                <input id="" placeholder="Username" type="text" name="username" value="<?php echo $username; ?>" required>
+
+                                                <?php if (isset($errors['username'])): ?>
+                                                    <small class="text-danger"><?php echo $errors['username']; ?></small>
                                                 <?php endif; ?>
-                                            </div>
-                            
+
+                                            </div>          
                                             
-                                            <div class="col-lg-6 col-12">
-                                                <input id="new-pwd" placeholder="New Password" type="password" name="password" >
+                                            
+                                            <div class="col-lg-12 col-12">
+                                                <input id="new-pwd" placeholder="Password" type="password" name="password" required>
                                                 <?php if (isset($errors['password'])): ?>
                                                     <small class="text-danger"><?php echo $errors['password']; ?></small>
                                                 <?php endif; ?>
                                             </div>
                                             
-                                            <div class="col-lg-6 col-12">
-                                                <input id="confirm-pwd" placeholder="Confirm Password" type="password" name="confirmPassword" >
-                                                <?php if (isset($errors['confirmPassword'])): ?>
-                                                    <small class="text-danger"><?php echo $errors['confirmPassword']; ?></small>
-                                                <?php endif; ?>
-                                            </div>
+                                       
                                             
-                                            <p>Login is required after changing Password</p>
+                                            
+                        
                                             
                                             
                                             <div class="col-12">
