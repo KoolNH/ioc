@@ -5,9 +5,13 @@ include('inc/db-connect.php');
 
 // get course with id
 $id = $_GET['id'];
-$sql ="SELECT * FROM courses WHERE id=$id;"; 
+$sql ="SELECT * FROM courses WHERE id='$id';"; 
 $result = $conn->query($sql);
 $course = $result->fetch();
+
+if ($course == false) {
+    header('Location: /404.php');
+}
 
 // get all topics of this course
 
@@ -28,6 +32,13 @@ foreach($topics as $i => $topic) {
     // topic['videos'] = $videos
     $topics[$i]['videos'] = $videos;
 }
+
+// get instructor of this course
+$id = $course['user_id'];
+$sql ="SELECT * FROM users WHERE id=$id;"; 
+$result = $conn->query($sql);
+$instructor = $result->fetch();
+
 
 ?>
 
@@ -111,11 +122,11 @@ foreach($topics as $i => $topic) {
                             <div class="rbt-author-meta mb--20">
                                 <div class="rbt-avater">
                                     <a href="#">
-                                        <img src="/assets/images/client/avatar-02.png" alt="Sophia Jaymes">
+                                        <img src="<?php echo $instructor['avatar']?>" alt="Sophia Jaymes">
                                     </a>
                                 </div>
                                 <div class="rbt-author-info">
-                                    By <a href="profile.html">Angela</a>
+                                    By <a href="/user/infor.php?id=<?php echo $instructor['id']?>"><?php echo $instructor['name'] ?></a>
                                 </div>
                             </div>
     
