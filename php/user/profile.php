@@ -1,3 +1,14 @@
+<?php
+include('../inc/db-connect.php');
+
+include('../auth/_check-loggedin.php');
+
+// get user with username
+$sql ="SELECT * FROM `users` WHERE username='$username' ";
+$result = $conn->query($sql);
+$user = $result->fetch();
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +21,27 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<?php include('inc/css.php');?>
+   <!-- Favicon -->
+   <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.png">
+
+<!-- CSS
+============================================ -->
+<link rel="stylesheet" href="/assets/css/vendor/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/css/vendor/slick.css">
+<link rel="stylesheet" href="/assets/css/vendor/slick-theme.css">
+<link rel="stylesheet" href="/assets/css/plugins/sal.css">
+<link rel="stylesheet" href="/assets/css/plugins/feather.css">
+<link rel="stylesheet" href="/assets/fontawesome-free-5.5.0-web/css/fontawesome.min.css">
+<link rel="stylesheet" href="/assets/css/plugins/euclid-circulara.css">
+<link rel="stylesheet" href="/assets/css/plugins/swiper.css">
+<link rel="stylesheet" href="/assets/css/plugins/magnify.css">
+<link rel="stylesheet" href="/assets/css/plugins/odometer.css">
+<link rel="stylesheet" href="/assets/css/plugins/animation.css">
+<link rel="stylesheet" href="/assets/css/plugins/bootstrap-select.min.css">
+<link rel="stylesheet" href="/assets/css/plugins/jquery-ui.css">
+<link rel="stylesheet" href="/assets/css/plugins/magnigy-popup.min.css">
+<link rel="stylesheet" href="/assets/css/plugins/plyr.css">
+<link rel="stylesheet" href="/assets/css/style.css">
 </head>
 
 <body>
@@ -20,7 +51,7 @@
         <!-- Start Header Top  -->
 
         <!-- End Header Top  -->
-        <?php include('inc/nav.php');?>
+        <?php include('../inc/nav.php');?>
         <!-- Start Side Vav -->
         <?php include('../inc/side-left.php');?>
         <!-- End Side Vav -->
@@ -49,7 +80,7 @@
                         <div class="rbt-tutor-information">
                             <div class="rbt-tutor-information-left">
                                 <div class="thumbnail rbt-avatars size-lg">
-                                    <img src="../assets/images/team/avatar.jpg" alt="Instructor">
+                                    <img src="..//assets/images/team/avatar.jpg" alt="Instructor">
                                 </div>
                                 <div class="tutor-content">
                                     <h5 class="title">John Due</h5>
@@ -65,59 +96,45 @@
                     <div class="row g-5">
                         <div class="col-lg-3">
                             <!-- Start Dashboard Sidebar  -->
-                            <?php include('inc/side-bar.php');?>
+                            <?php include('../inc/side-bar.php');?>
                             <!-- End Dashboard Sidebar  -->
                         </div>
 
                         <div class="col-lg-9">
                         <div class="rbt-dashboard-content bg-color-white rbt-shadow-box">
                                 <div class="content">
-                                    <div class="section-title">
+                                    <div class="section-title d-flex justify-content-between align-items-center">
                                         <h4 class="rbt-title-style-3">My Profile</h4>
-                                    </div>
-                                    <!-- Start Profile Row  -->
-                                    <div class="rbt-profile-row row row--15">
-                                        <div class="col-lg-4 col-md-4">
-                                            <div class="rbt-profile-content b2">Registration Date</div>
-                                        </div>
-                                        <div class="col-lg-8 col-md-8">
-                                            <div class="rbt-profile-content b2">February 25, 2025 6:01 am</div>
-                                        </div>
-                                    </div>
-                                    <!-- End Profile Row  -->
 
-                                    <!-- Start Profile Row  -->
-                                    <div class="rbt-profile-row row row--15 mt--15">
-                                        <div class="col-lg-4 col-md-4">
-                                            <div class="rbt-profile-content b2">First Name</div>
-                                        </div>
-                                        <div class="col-lg-8 col-md-8">
-                                            <div class="rbt-profile-content b2">John</div>
-                                        </div>
+                                        <a href='/user/edit-profile.php' class='btn btn-primary btn-lg'>Edit profile</a>
                                     </div>
-                                    <!-- End Profile Row  -->
+                              
 
-                                    <!-- Start Profile Row  -->
-                                    <div class="rbt-profile-row row row--15 mt--15">
-                                        <div class="col-lg-4 col-md-4">
-                                            <div class="rbt-profile-content b2">Last Name</div>
-                                        </div>
-                                        <div class="col-lg-8 col-md-8">
-                                            <div class="rbt-profile-content b2">Doe</div>
-                                        </div>
-                                    </div>
-                                    <!-- End Profile Row  -->
-
-                                    <!-- Start Profile Row  -->
-                                    <div class="rbt-profile-row row row--15 mt--15">
+                                     <!-- Start Profile Row  -->
+                                     <div class="rbt-profile-row row row--15 mt--15">
                                         <div class="col-lg-4 col-md-4">
                                             <div class="rbt-profile-content b2">Username</div>
                                         </div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="rbt-profile-content b2">instructor</div>
+                                            <div class="rbt-profile-content b2"><?php echo $user['username']; ?></div>
                                         </div>
                                     </div>
                                     <!-- End Profile Row  -->
+
+                                    <!-- Start Profile Row  -->
+                                    <div class="rbt-profile-row row row--15 mt--15">
+                                        <div class="col-lg-4 col-md-4">
+                                            <div class="rbt-profile-content b2">Full Name</div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="rbt-profile-content b2"><?php echo $user['name']; ?></div>
+                                        </div>
+                                    </div>
+                                    <!-- End Profile Row  -->
+
+                                  
+
+                                   
 
                                     <!-- Start Profile Row  -->
                                     <div class="rbt-profile-row row row--15 mt--15">
@@ -125,7 +142,7 @@
                                             <div class="rbt-profile-content b2">Email</div>
                                         </div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="rbt-profile-content b2">example@gmail.com</div>
+                                            <div class="rbt-profile-content b2"><?php echo $user['email']; ?></div>
                                         </div>
                                     </div>
                                     <!-- End Profile Row  -->
@@ -136,32 +153,24 @@
                                             <div class="rbt-profile-content b2">Phone Number</div>
                                         </div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="rbt-profile-content b2">+1-202-555-0174</div>
+                                            <div class="rbt-profile-content b2"><?php echo $user['phone']; ?></div>
                                         </div>
                                     </div>
                                     <!-- End Profile Row  -->
 
-                                    <!-- Start Profile Row  -->
-                                    <div class="rbt-profile-row row row--15 mt--15">
+                                          <!-- Start Profile Row  -->
+                                          <div class="rbt-profile-row row row--15 mt--15">
                                         <div class="col-lg-4 col-md-4">
-                                            <div class="rbt-profile-content b2">Skill/Occupation</div>
+                                            <div class="rbt-profile-content b2">Register Date</div>
                                         </div>
                                         <div class="col-lg-8 col-md-8">
-                                            <div class="rbt-profile-content b2">Application Developer</div>
+                                            <div class="rbt-profile-content b2"><?php echo $user['registered_at']; ?></div>
                                         </div>
                                     </div>
                                     <!-- End Profile Row  -->
 
-                                    <!-- Start Profile Row  -->
-                                    <div class="rbt-profile-row row row--15 mt--15">
-                                        <div class="col-lg-4 col-md-4">
-                                            <div class="rbt-profile-content b2">Biography</div>
-                                        </div>
-                                        <div class="col-lg-8 col-md-8">
-                                            <div class="rbt-profile-content b2">I'm the Front-End Developer for #Rainbow IT in Bangladesh, OR. I have serious passion for UI effects, animations and creating intuitive, dynamic user experiences.</div>
-                                        </div>
-                                    </div>
-                                    <!-- End Profile Row  -->
+                                    
+
                                 </div>
                             </div>
 
@@ -177,9 +186,7 @@
             <hr class="rbt-separator m-0">
         </div>
     </div>
-    <!-- Start Footer aera -->
-<?php include ('inc/footer.php');?>
-    <!-- End Footer aera -->
+ 
     <div class="rbt-progress-parent">
         <svg class="rbt-back-circle svg-inner" width="100%" height="100%" viewBox="-1 -1 102 102">
             <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
@@ -189,35 +196,35 @@
     <!-- JS
 ============================================ -->
     <!-- Modernizer JS -->
-    <script src="assets/js/vendor/modernizr.min.js"></script>
+    <script src="/assets/js/vendor/modernizr.min.js"></script>
     <!-- jQuery JS -->
-    <script src="assets/js/vendor/jquery.js"></script>
+    <script src="/assets/js/vendor/jquery.js"></script>
     <!-- Bootstrap JS -->
-    <script src="assets/js/vendor/bootstrap.min.js"></script>
+    <script src="/assets/js/vendor/bootstrap.min.js"></script>
     <!-- sal.js -->
-    <script src="assets/js/vendor/sal.js"></script>
-    <script src="assets/js/vendor/swiper.js"></script>
-    <script src="assets/js/vendor/magnify.min.js"></script>
-    <script src="assets/js/vendor/jquery-appear.js"></script>
-    <script src="assets/js/vendor/odometer.js"></script>
-    <script src="assets/js/vendor/backtotop.js"></script>
-    <script src="assets/js/vendor/isotop.js"></script>
-    <script src="assets/js/vendor/imageloaded.js"></script>
+    <script src="/assets/js/vendor/sal.js"></script>
+    <script src="/assets/js/vendor/swiper.js"></script>
+    <script src="/assets/js/vendor/magnify.min.js"></script>
+    <script src="/assets/js/vendor/jquery-appear.js"></script>
+    <script src="/assets/js/vendor/odometer.js"></script>
+    <script src="/assets/js/vendor/backtotop.js"></script>
+    <script src="/assets/js/vendor/isotop.js"></script>
+    <script src="/assets/js/vendor/imageloaded.js"></script>
 
-    <script src="assets/js/vendor/wow.js"></script>
-    <script src="assets/js/vendor/waypoint.min.js"></script>
-    <script src="assets/js/vendor/easypie.js"></script>
-    <script src="assets/js/vendor/text-type.js"></script>
-    <script src="assets/js/vendor/jquery-one-page-nav.js"></script>
-    <script src="assets/js/vendor/bootstrap-select.min.js"></script>
-    <script src="assets/js/vendor/jquery-ui.js"></script>
-    <script src="assets/js/vendor/magnify-popup.min.js"></script>
-    <script src="assets/js/vendor/paralax-scroll.js"></script>
-    <script src="assets/js/vendor/paralax.min.js"></script>
-    <script src="assets/js/vendor/countdown.js"></script>
-    <script src="assets/js/vendor/plyr.js"></script>
+    <script src="/assets/js/vendor/wow.js"></script>
+    <script src="/assets/js/vendor/waypoint.min.js"></script>
+    <script src="/assets/js/vendor/easypie.js"></script>
+    <script src="/assets/js/vendor/text-type.js"></script>
+    <script src="/assets/js/vendor/jquery-one-page-nav.js"></script>
+    <script src="/assets/js/vendor/bootstrap-select.min.js"></script>
+    <script src="/assets/js/vendor/jquery-ui.js"></script>
+    <script src="/assets/js/vendor/magnify-popup.min.js"></script>
+    <script src="/assets/js/vendor/paralax-scroll.js"></script>
+    <script src="/assets/js/vendor/paralax.min.js"></script>
+    <script src="/assets/js/vendor/countdown.js"></script>
+    <script src="/assets/js/vendor/plyr.js"></script>
     <!-- Main JS -->
-    <script src="assets/js/main.js"></script>
+    <script src="/assets/js/main.js"></script>
 </body>
 
 </html>

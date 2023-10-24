@@ -55,13 +55,13 @@
                                             <img src="assets/images/team/avatar.jpg" alt="User Images">
                                         </div>
                                         <div class="admin-info">
-                                            <span class="name">Nipa Bali</span>
-                                            <a class="rbt-btn-link color-primary" href="profile.html">View Profile</a>
+                                            <span class="name">Kool</span>
+                                            <a class="rbt-btn-link color-primary" href="/user/profile.php">View Profile</a>
                                         </div>
                                     </div>
                                     <ul class="user-list-wrapper">
                                         <li>
-                                            <a href="instructor-dashboard.html">
+                                            <a href="/dashboard.php">
                                                 <i class="feather-home"></i>
                                                 <span>My Dashboard</span>
                                             </a>

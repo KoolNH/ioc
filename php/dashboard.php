@@ -1,6 +1,5 @@
 <?php 
-    session_start();
-
+ 
 include('./auth/_check-loggedin.php');
 ?>
 

@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 
 include('./_check-loggedin.php');
 
@@ -36,8 +36,8 @@ if (!empty($_POST)) {
     $oldPassword = sha1($oldPassword);
 
     // check if hashed password == user password
-    if($oldPassword == $user['password']) {
-        // TODO
+    if($oldPassword != $user['password']) {
+        $errors['oldPassword'] = 'Password incorect!';
     }
 
     if (empty($password)) {

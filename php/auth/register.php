@@ -85,7 +85,7 @@ if (!empty($_POST)) {
         $password = sha1($password);
         
         // insert user into db
-        $sql = "INSERT INTO `users` (`id`, `role`, `username`, `password`, `name`, `avatar`, `phone`) VALUES (NULL, 'learner', '$username', '$password', '$name', '', '$phone');";
+        $sql = "INSERT INTO `users` (`id`, `role`, `username`, `password`, `name`, `avatar`, `phone`,`email`) VALUES (NULL, 'learner', '$username', '$password', '$name', '', '$phone','$email');";
         $result = $conn->query($sql);
 
         // redirect to /enrolled courses
