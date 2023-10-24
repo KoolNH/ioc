@@ -12,7 +12,7 @@
             <div class="header-left rbt-header-content">
                 <div class="header-info">
                     <div class="logo">
-                        <a href="index.html">
+                        <a href="/">
                             <img src="/assets/images/logo/logo4.png" alt="Education Logo Images">
                         </a>
                     </div>
@@ -24,16 +24,14 @@
                 <nav class="mainmenu-nav">
                     <ul class="mainmenu">
                         <li class="">
-                            <a href="#">Home </a>
+                            <a href="/dashboard.php">Home </a>
                             
                         </li><li class="">
-                            <a href="#">Course </a>
+                            <a href="/courses.php">Course </a>
                         </li>
                         <li class="">
-                            <a href="#">Instructor </a>
-                        </li><li class="">
-                            <a href="#">Leaner </a>
-                        </li>    
+                            <a href="/instructor.php">Instructor </a>
+                        </li>
                         
                     </ul>
                 </nav>
