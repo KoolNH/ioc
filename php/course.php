@@ -109,7 +109,7 @@ $instructor = $result->fetch();
                         <div class="content text-start">
                             
                             <h2 class="title"><?php echo $course['name'] ?></h2>
-                            <p class="description"><?php echo $course['description']?></p>
+                            <p class="description"><?php echo $course['short_description']?></p>
     
                             <div class="d-flex align-items-center mb--20 flex-wrap rbt-course-details-feature">
     
@@ -149,7 +149,7 @@ $instructor = $result->fetch();
                     <div class="col-lg-8">
                         <div class="course-details-content">
                             <div class="rbt-course-feature-box rbt-shadow-box thuumbnail">
-                                <img class="w-100" src="/assets/images/course/course-01.jpg" alt="Card image">
+                                <img class="w-100" src="<?php echo $course['image'] ?>" alt="Card image">
                             </div>
     
                             <div class="rbt-inner-onepage-navigation sticky-top mt--30">
@@ -176,62 +176,7 @@ $instructor = $result->fetch();
                                     <div class="section-title">
                                         <h4 class="rbt-title-style-3">What you'll learn</h4>
                                     </div>
-                                    <p>Are you new to PHP or need a refresher? Then this course will help you get
-                                        all the fundamentals of Procedural PHP, Object Oriented PHP, MYSQLi and
-                                        ending the course by building a CMS system similar to WordPress, Joomla or
-                                        Drupal. Knowing PHP has allowed me to make enough money to stay home and
-                                        make courses like this one for students all over the world. </p>
-    
-                                    <div class="row g-5 mb--30">
-                                        <!-- Start Feture Box  -->
-                                        <div class="col-lg-6">
-                                            <ul class="rbt-list-style-1">
-                                                <li><i class="feather-check"></i>Become an advanced, confident, and
-                                                    modern
-                                                    JavaScript developer from scratch.</li>
-                                                <li><i class="feather-check"></i>Have an intermediate skill level of
-                                                    Python
-                                                    programming.</li>
-                                                <li><i class="feather-check"></i>Have a portfolio of various data
-                                                    analysis
-                                                    projects.</li>
-                                                <li><i class="feather-check"></i>Use the numpy library to create and
-                                                    manipulate
-                                                    arrays.</li>
-                                            </ul>
-                                        </div>
-                                        <!-- End Feture Box  -->
-    
-                                        <!-- Start Feture Box  -->
-                                        <div class="col-lg-6">
-                                            <ul class="rbt-list-style-1">
-                                                <li><i class="feather-check"></i>Use the Jupyter Notebook
-                                                    Environment.
-                                                    JavaScript developer from scratch.</li>
-                                                <li><i class="feather-check"></i>Use the pandas module with Python
-                                                    to create and
-                                                    structure data.</li>
-                                                <li><i class="feather-check"></i>Have a portfolio of various data
-                                                    analysis
-                                                    projects.</li>
-                                                <li><i class="feather-check"></i>Create data visualizations using
-                                                    matplotlib and
-                                                    the seaborn.</li>
-                                            </ul>
-                                        </div>
-                                        <!-- End Feture Box  -->
-                                    </div>
-                                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis, aliquam
-                                        voluptas laudantium incidunt architecto nam excepturi provident rem laborum
-                                        repellendus placeat neque aut doloremque ut ullam, veritatis nesciunt iusto
-                                        officia alias, non est vitae. Eius repudiandae optio quam alias aperiam nemo
-                                        nam tempora, dignissimos dicta excepturi ea quo ipsum omnis maiores
-                                        perferendis commodi voluptatum facere vel vero. Praesentium quisquam iure
-                                        veritatis, perferendis adipisci sequi blanditiis quidem porro eligendi
-                                        fugiat facilis inventore amet delectus expedita deserunt ut molestiae modi
-                                        laudantium, quia tenetur animi natus ea. Molestiae molestias ducimus
-                                        pariatur et consectetur. Error vero, eum soluta delectus necessitatibus
-                                        eligendi numquam hic at?</p>
+                                        <?php echo $instructor['description'] ?>
                                 </div>
                                 <div class="rbt-show-more-btn">Show More</div>
                             </div>
@@ -293,42 +238,23 @@ $instructor = $result->fetch();
                                     <div class="media align-items-center">
                                         <div class="thumbnail">
                                             <a href="#">
-                                                <img src="/assets/images/testimonial/testimonial-7.jpg" alt="Author Images">
+                                                <img src="<?php echo $instructor['avatar'] ?>"  alt="Author Images" style='min-width: 80px; max-height: 80px;'>
                                             </a>
                                         </div>
                                         <div class="media-body">
                                             <div class="author-info">
                                                 <h5 class="title">
-                                                    <a class="hover-flip-item-wrapper" href="author.html">B.M. Rafekul Islam</a>
-                                                </h5>
-                                                <span class="b3 subtitle">Advanced Educator</span>
+                                                    <a class="hover-flip-item-wrapper" href="author.html"><?php echo $instructor['name'] ?></a>
+                                                </h5>                                             
                                                 <ul class="rbt-meta mb--20 mt--10">
-                                                    <li><i class="fa fa-star color-warning"></i>75,237 Reviews <span class="rbt-badge-5 ml--5">4.4 Rating</span></li>
                                                     <li><i class="feather-users"></i>912,970 Students</li>
                                                     <li><a href="#"><i class="feather-video"></i>16 Courses</a></li>
                                                 </ul>
                                             </div>
                                             <div class="content">
-                                                <p class="description">John is a brilliant educator, whose life was spent
-                                                    for computer science and love of nature.</p>
+                                                <p class="description"><?php echo $instructor['description']?></p>
     
-                                                <ul class="social-icon social-default icon-naked justify-content-start">
-                                                    <li><a href="https://www.facebook.com/">
-                                                            <i class="feather-facebook"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li><a href="https://www.twitter.com">
-                                                            <i class="feather-twitter"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li><a href="https://www.instagram.com/">
-                                                            <i class="feather-instagram"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li><a href="https://www.linkdin.com/">
-                                                            <i class="feather-linkedin"></i>
-                                                        </a>
-                                                    </li>
+                                                <ul class="social-icon social-default icon-naked justify-content-start">                                   
                                                 </ul>
     
                                             </div>
