@@ -1,8 +1,6 @@
-<?php 
- 
-include('./auth/_check-loggedin.php');
+<?php
+    include('auth/_check-loggedin.php')
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -67,9 +65,122 @@ include('./auth/_check-loggedin.php');
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    
+                    <!-- Start Dashboard Top  -->
+                    <div class="rbt-dashboard-content-wrapper">
+                        <div class="tutor-bg-photo bg_image bg_image--22 height-350"></div>
+                        <!-- Start Tutor Information  -->
+                        <div class="rbt-tutor-information">
+                            <div class="rbt-tutor-information-left">
+                                <div class="thumbnail rbt-avatars size-lg">
+                                    <img src="assets/images/team/avatar.jpg" alt="Instructor">
+                                </div>
+                                <div class="tutor-content">
+                                    <h5 class="title">John Due</h5>
+                                    <div class="rbt-review">
+                                        <div class="rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span class="rating-count"> (15 Reviews)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rbt-tutor-information-right">
+                                <div class="tutor-btn">
+                                    <a class="rbt-btn btn-md hover-icon-reverse" href="create-course.html">
+                                        <span class="icon-reverse-wrapper">
+                        <span class="btn-text">Create a New Course</span>
+                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Tutor Information  -->
+                    </div>
+                    <!-- End Dashboard Top  -->
+
                     <div class="row g-5">
-                       <h1>Welcome <?php echo $username; ?>!</h1>
+                        <div class="col-lg-3">
+                            <!-- Start Dashboard Sidebar  -->
+                            <?php include('inc/side-bar.php');?>
+                            <!-- End Dashboard Sidebar  -->
+                        </div>
+
+                        <div class="col-lg-9">
+                            <div class="rbt-dashboard-content bg-color-white rbt-shadow-box mb--60">
+                                <div class="content">
+                                    <div class="section-title">
+                                        <h4 class="rbt-title-style-3">Dashboard</h4>
+                                    </div>
+                                    <div class="row g-5">
+
+                                        <!-- Start Single Card  -->
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                            <div class="rbt-counterup variation-01 rbt-hover-03 rbt-border-dashed bg-primary-opacity">
+                                                <div class="inner">
+                                                    <div class="rbt-round-icon bg-primary-opacity">
+                                                        <i class="feather-book-open"></i>
+                                                    </div>
+                                                    <div class="content">
+                                                        <h3 class="counter without-icon color-primary"><span class="odometer" data-count="30">00</span>
+                                                        </h3>
+                                                        <span class="rbt-title-style-2 d-block">Courses</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Single Card  -->
+
+
+
+            
+
+                                        <!-- Start Single Card  -->
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                            <div class="rbt-counterup variation-01 rbt-hover-03 rbt-border-dashed bg-pink-opacity">
+                                                <div class="inner">
+                                                    <div class="rbt-round-icon bg-pink-opacity">
+                                                        <i class="feather-users"></i>
+                                                    </div>
+                                                    <div class="content">
+                                                        <h3 class="counter without-icon color-pink"><span class="odometer" data-count="160">00</span>
+                                                        </h3>
+                                                        <span class="rbt-title-style-2 d-block">Leaner</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Single Card  -->
+
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                            <div class="rbt-counterup variation-01 rbt-hover-03 rbt-border-dashed bg-warning-opacity">
+                                                <div class="inner">
+                                                    <div class="rbt-round-icon bg-warning-opacity">
+                                                        <i class="feather-users"></i>
+                                                    </div>
+                                                    <div class="content">
+                                                        <h3 class="counter without-icon color-warning"><span class="odometer" data-count="160">00</span>
+                                                        </h3>
+                                                        <span class="rbt-title-style-2 d-block">Instructor</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>

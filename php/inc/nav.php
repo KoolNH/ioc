@@ -1,9 +1,9 @@
 <?php
-    $loggedIn = false;
+$loggedIn = false;
 
-    if(isset($_SESSION['username'])) {
-        $loggedIn = true;
-    }
+if(isset($_SESSION['username'])) {
+    $loggedIn = true;
+}
 ?>
 
 <div class="rbt-header-wrapper header-space-betwween header-sticky">
@@ -17,99 +17,101 @@
                         </a>
                     </div>
                 </div>
-                
+
             </div>
-            
+
             <div class="rbt-main-navigation d-none d-xl-block">
                 <nav class="mainmenu-nav">
                     <ul class="mainmenu">
                         <li class="">
                             <a href="/dashboard.php">Home </a>
-                            
-                        </li><li class="">
+
+                        </li>
+                        <li class="">
                             <a href="/courses.php">Course </a>
                         </li>
                         <li class="">
                             <a href="/instructor.php">Instructor </a>
                         </li>
-                        
+
                     </ul>
                 </nav>
             </div>
-            
+
             <div class="header-right">
-                
+
                 <!-- Navbar Icons -->
                 <ul class="quick-access">
-                    
+
                     <?php if($loggedIn == true): ?>
-                    
-                        <li class="account-access rbt-user-wrapper d-none d-xl-block">
-                            <a href="#"><i class="feather-user"></i>Admin</a>
-                            <div class="rbt-user-menu-list-wrapper">
-                                <div class="inner">
-                                    <div class="rbt-admin-profile">
-                                        <div class="admin-thumbnail">
-                                            <img src="assets/images/team/avatar.jpg" alt="User Images">
-                                        </div>
-                                        <div class="admin-info">
-                                            <span class="name">Kool</span>
-                                            <a class="rbt-btn-link color-primary" href="/user/profile.php">View Profile</a>
-                                        </div>
+
+                    <li class="account-access rbt-user-wrapper d-none d-xl-block">
+                        <a href="#"><i class="feather-user"></i>Admin</a>
+                        <div class="rbt-user-menu-list-wrapper">
+                            <div class="inner">
+                                <div class="rbt-admin-profile">
+                                    <div class="admin-thumbnail">
+                                        <img src="assets/images/team/avatar.jpg" alt="User Images">
                                     </div>
-                                    <ul class="user-list-wrapper">
-                                        <li>
-                                            <a href="/dashboard.php">
-                                                <i class="feather-home"></i>
-                                                <span>My Dashboard</span>
-                                            </a>
-                                        </li>
-                                        
-                                        <li>
-                                            <a href="instructor-enrolled-courses.html">
-                                                <i class="feather-shopping-bag"></i>
-                                                <span>Enrolled Courses</span>
-                                            </a>
-                                        </li>
-                                        
-                                        
-                                        
-                                    </ul>
-                                    <hr class="mt--10 mb--10">
-                                    
-                                    
-                                    <ul class="user-list-wrapper">
-                                        <li>
-                                            <a href="/auth/change-password.php">
-                                                <i class="feather-settings"></i>
-                                                <span>Change Passwrod</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/auth/logout.php">
-                                                <i class="feather-log-out"></i>
-                                                <span>Logout</span>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                    <div class="admin-info">
+                                        <span class="name">Kool</span>
+                                        <a class="rbt-btn-link color-primary" href="/user/profile.php">View Profile</a>
+                                    </div>
                                 </div>
+                                <ul class="user-list-wrapper">
+                                    <li>
+                                        <a href="/dashboard.php">
+                                            <i class="feather-home"></i>
+                                            <span>My Dashboard</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="instructor-enrolled-courses.html">
+                                            <i class="feather-shopping-bag"></i>
+                                            <span>Enrolled Courses</span>
+                                        </a>
+                                    </li>
+
+
+
+                                </ul>
+                                <hr class="mt--10 mb--10">
+
+
+                                <ul class="user-list-wrapper">
+                                    <li>
+                                        <a href="/auth/change-password.php">
+                                            <i class="feather-settings"></i>
+                                            <span>Change Passwrod</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/auth/logout.php">
+                                            <i class="feather-log-out"></i>
+                                            <span>Logout</span>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
-                        </li>
-                     
+                        </div>
+                    </li>
+
                     <?php else: ?>
-                        <div class="rbt-btn-wrapper d-none d-xl-block">
-                            <a class="rbt-btn btn-border-gradient radius-round btn-sm hover-transform-none" href="/auth/login.php">
-                                <span data-text="Login">Login</span>
-                            </a>
-                        </div>
-                        &nbsp;
-                        <div class="rbt-btn-wrapper d-none d-xl-block">
-                            <a class="rbt-btn radius-round btn-sm hover-transform-none" href="/auth/register.php">
-                                <span data-text="Login">Register</span>
-                            </a>
-                        </div>
+                    <div class="rbt-btn-wrapper d-none d-xl-block">
+                        <a class="rbt-btn btn-border-gradient radius-round btn-sm hover-transform-none"
+                            href="/auth/login.php">
+                            <span data-text="Login">Login</span>
+                        </a>
+                    </div>
+                    &nbsp;
+                    <div class="rbt-btn-wrapper d-none d-xl-block">
+                        <a class="rbt-btn radius-round btn-sm hover-transform-none" href="/auth/register.php">
+                            <span data-text="Login">Register</span>
+                        </a>
+                    </div>
                     <?php endif; ?>
-                    
+
                     <li class="access-icon rbt-user-wrapper d-block d-xl-none">
                         <a class="rbt-round-btn" href="#"><i class="feather-user"></i></a>
                         <div class="rbt-user-menu-list-wrapper">
@@ -200,11 +202,11 @@
                             </div>
                         </div>
                     </li>
-                    
+
                 </ul>
-                
-                
-                
+
+
+
                 <!-- Start Mobile-Menu-Bar -->
                 <div class="mobile-menu-bar d-block d-xl-none">
                     <div class="hamberger">
@@ -214,7 +216,7 @@
                     </div>
                 </div>
                 <!-- Start Mobile-Menu-Bar -->
-                
+
             </div>
         </div>
     </div>
@@ -231,18 +233,18 @@
                     </form>
                 </div>
             </div>
-            
+
             <div class="rbt-separator-mid">
                 <hr class="rbt-separator m-0">
             </div>
-            
+
             <div class="row g-4 pt--30 pb--60">
                 <div class="col-lg-12">
                     <div class="section-title">
                         <h5 class="rbt-title-style-2">Our Top Course</h5>
                     </div>
                 </div>
-                
+
                 <!-- Start Single Card  -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                     <div class="rbt-card variation-01 rbt-hover">
@@ -274,7 +276,7 @@
                     </div>
                 </div>
                 <!-- End Single Card  -->
-                
+
                 <!-- Start Single Card  -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                     <div class="rbt-card variation-01 rbt-hover">
@@ -306,7 +308,7 @@
                     </div>
                 </div>
                 <!-- End Single Card  -->
-                
+
                 <!-- Start Single Card  -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                     <div class="rbt-card variation-01 rbt-hover">
@@ -338,7 +340,7 @@
                     </div>
                 </div>
                 <!-- End Single Card  -->
-                
+
                 <!-- Start Single Card  -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                     <div class="rbt-card variation-01 rbt-hover">
@@ -371,7 +373,7 @@
                 </div>
                 <!-- End Single Card  -->
             </div>
-            
+
         </div>
     </div>
     <!-- End Search Dropdown  -->
