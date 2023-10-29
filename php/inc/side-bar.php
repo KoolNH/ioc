@@ -10,7 +10,7 @@
                 <nav class="mainmenu-nav">
                     <ul class="dashboard-mainmenu rbt-default-sidebar-list">
                         <li><a href="/user/profile.php"><i class="feather-user"></i><span>My Profile</span></a></li>
-                        <li><a href="/my-courses.php"><i class="feather-monitor"></i><span>My Courses</span></a></li>
+                        <li><a href="/course/my-courses.php"><i class="feather-monitor"></i><span>My Courses</span></a></li>
                         <li><a href="/auth/change-password.php"><i class="feather-settings"></i><span>Change
                                     Password</span></a></li>
                         <li><a href="/auth/logout.php"><i class="feather-log-out"></i><span>Logout</span></a></li>

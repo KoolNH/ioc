@@ -12,4 +12,9 @@
    }
 
    $username = $_SESSION['username'];
+
+   // get user with username
+    $sql ="SELECT * FROM `users` WHERE username='$username' ";
+    $result = $conn->query($sql);
+    $loggedInUser = $result->fetch();
 ?>
