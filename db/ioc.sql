@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 29, 2023 lúc 03:56 AM
+-- Thời gian đã tạo: Th10 31, 2023 lúc 10:17 AM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -43,11 +43,27 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`id`, `name`, `short_description`, `description`, `image`, `url_video_intro`, `updated_at`, `user_id`) VALUES
-(1, 'The Complete Histudy 2023: From Zero to Expert!', 'Are you new to PHP or need a refresher? Then this course will help you get all the fundamentals of Procedural PHP', 'Are you new to PHP or need a refresher? Then this course will help you get all the fundamentals of Procedural PHP, Object Oriented PHP, MYSQLi and ending the course by building a CMS system similar to WordPress, Joomla or Drupal. Knowing PHP has allowed m', 'https://rainbowit.net/html/histudy/assets/images/course/course-01.jpg', 'https://www.youtube.com/watch?v=nA1Aqp0sPQo', '2023-10-29 09:45:17', 1),
-(2, 'course 2', '', 'asdasdsadasdsad', 'https://rainbowit.net/html/histudy/assets/images/course/course-01.jpg', 'https://www.youtube.com/watch?v=nA1Aqp0sPQo', '2023-10-24 17:09:30', 1),
-(3, 'course 3', '', 'asdasdsadasdsad123', 'https://rainbowit.net/html/histudy/assets/images/course/course-01.jpg', '', '2023-10-24 17:09:32', 1),
-(4, 'course 4', '', 'asdasdsadasdsad123', 'https://rainbowit.net/html/histudy/assets/images/course/course-01.jpg', '', '2023-10-24 17:09:35', 1),
-(5, 'course 5', '', 'asdasdsadasdsad123', 'https://rainbowit.net/html/histudy/assets/images/course/course-01.jpg', '', '2023-10-24 17:09:38', 1);
+(2, 'course 3', 'fdafd', 'daffda', 'fdaf', 'fdasfda', '2023-10-29 11:29:39', 1),
+(3, 'course 3', '', 'asdasdsadasdsad123', 'https://rainbowit.net/html/histudy/assets/images/course/course-01.jpg', '', '2023-10-24 17:09:32', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `enrollments`
+--
+
+CREATE TABLE `enrollments` (
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `course_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `enrollments`
+--
+
+INSERT INTO `enrollments` (`user_id`, `course_id`) VALUES
+(1, 2),
+(1, 3);
 
 -- --------------------------------------------------------
 
@@ -67,7 +83,9 @@ CREATE TABLE `topics` (
 
 INSERT INTO `topics` (`id`, `name`, `course_id`) VALUES
 (1, 'Topic 1', 2),
-(2, 'Topic 2', 2);
+(2, 'Topic 2', 2),
+(3, 'qweqwe', 2),
+(5, 'trhedrsgsfd', 3);
 
 -- --------------------------------------------------------
 
@@ -121,7 +139,8 @@ CREATE TABLE `videos` (
 INSERT INTO `videos` (`id`, `title`, `url`, `topic_id`) VALUES
 (1, 'video 1 ', 'abc', 1),
 (2, 'video 2', '123asdc', 1),
-(3, 'video 1', 'url', 2);
+(3, 'video 1', 'url', 2),
+(6, 'kool123123', 'https://www.youtube.com/watch?v=pC_Xezr23123wTsk', 5);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -133,6 +152,13 @@ INSERT INTO `videos` (`id`, `title`, `url`, `topic_id`) VALUES
 ALTER TABLE `courses`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- Chỉ mục cho bảng `enrollments`
+--
+ALTER TABLE `enrollments`
+  ADD PRIMARY KEY (`user_id`,`course_id`),
+  ADD KEY `course_id` (`course_id`);
 
 --
 -- Chỉ mục cho bảng `topics`
@@ -163,13 +189,13 @@ ALTER TABLE `videos`
 -- AUTO_INCREMENT cho bảng `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT cho bảng `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `users`
@@ -181,7 +207,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `videos`
 --
 ALTER TABLE `videos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -192,6 +218,13 @@ ALTER TABLE `videos`
 --
 ALTER TABLE `courses`
   ADD CONSTRAINT `courses_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `enrollments`
+--
+ALTER TABLE `enrollments`
+  ADD CONSTRAINT `enrollments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `enrollments_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `topics`
