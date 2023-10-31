@@ -294,7 +294,7 @@ $instructor = $result->fetch();
                                     
     
                                     <div class="add-to-card-button mt--15">
-                                        <a class="rbt-btn btn-gradient icon-hover w-100 d-block text-center" href="#">
+                                        <a class="rbt-btn btn-gradient icon-hover w-100 d-block text-center" href="/course/enroll-course.php?id=<?php echo $course['id'] ?>">
                                             <span class="btn-text">Enroll now</span>
                                             <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                         </a>

@@ -4,12 +4,11 @@ include('../auth/_check-loggedin.php');
 
 
 $id = $loggedInUser['id'];
-$sql = "SELECT * FROM `courses` WHERE `user_id`=$id";
+$sql = "SELECT * FROM `courses` INNER JOIN enrollments ON courses.id = enrollments.course_id WHERE enrollments.user_id = $id;";
+
 
 // search course
 $name ="";
-
-
 
 //search by name
 if(isset($_GET['name'])) {
@@ -129,7 +128,7 @@ $courses = $result->fetchAll();
                                     <div class="content">
                                         
                                         <div class="section-title">
-                                            <h4 class="rbt-title-style-3">All Courses
+                                            <h4 class="rbt-title-style-3">Enrolled Courses
                                             </h4>
                                             
                                             <form action="" class="row row--15">
@@ -184,11 +183,7 @@ $courses = $result->fetchAll();
                                                                     <li><i class="feather-users"></i>40 Students</li>
                                                                 </ul>
                                                                 
-                                                                <a class="btn btn-primary btn-lg" href="/course/edit-course.php?id=<?php echo $course['id'] ?>"> Edit </a>
-
-                                                                <form method="post" action="/course/delete-course.php?id=<?php echo $course['id'] ?>" class="d-inline">
-                                                                    <button class="btn btn-danger btn-lg" onclick="return confirm('Are you sure?');"> Delete </button>
-                                                                </form>
+                                                              
                                                             </div>
                                                         </div>
                                                     </div>
