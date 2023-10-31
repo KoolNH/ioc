@@ -1,4 +1,7 @@
 <?php
+
+include('../inc/db-connect.php');
+
     session_start();
    $loggedIn = false;
     
