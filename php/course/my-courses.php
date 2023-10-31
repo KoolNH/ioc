@@ -4,7 +4,7 @@ include('../auth/_check-loggedin.php');
 
 
 $id = $loggedInUser['id'];
-$sql = "SELECT * FROM `courses` WHERE `user_id`=$id";
+$sql = "SELECT * FROM `courses` WHERE `instructor_id`=$id";
 
 // search course
 $name ="";

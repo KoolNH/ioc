@@ -33,7 +33,7 @@ foreach($topics as $i => $topic) {
 }
 
 // get instructor of this course
-$id = $course['user_id'];
+$id = $course['instructor_id'];
 $sql ="SELECT * FROM users WHERE id=$id;"; 
 $result = $conn->query($sql);
 $instructor = $result->fetch();

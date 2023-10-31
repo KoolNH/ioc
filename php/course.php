@@ -31,14 +31,51 @@ foreach($topics as $i => $topic) {
 
     // topic['videos'] = $videos
     $topics[$i]['videos'] = $videos;
+
+    $sql ="SELECT SUM(duration_in_minute) as total FROM videos WHERE topic_id=$id;";
+    $result = $conn->query($sql);
+    $result = $result->fetch();
+
+    $total = $result['total'];
+    $topics[$i]['total'] = $total;
+
 }
 
 // get instructor of this course
-$id = $course['user_id'];
+$id = $course['instructor_id'];
 $sql ="SELECT * FROM users WHERE id=$id;"; 
 $result = $conn->query($sql);
 $instructor = $result->fetch();
 
+// count topics
+$course_id = $course['id'];
+$sql = "SELECT COUNT(*) AS no_topics FROM topics WHERE course_id='$course_id'";
+$result = $conn->query($sql);
+$result = $result->fetch();
+
+$no_topics = $result['no_topics'];
+$course['no_topics'] = $no_topics;
+
+// count enrollments
+$course_id = $course['id']; 
+$sql = "SELECT COUNT(*) as no_enrollments FROM `enrollments` WHERE course_id='$course_id'";
+$result = $conn->query($sql);
+$result = $result->fetch();
+
+$no_enrollments = $result['no_enrollments'];
+$course['no_enrollments'] = $no_enrollments;
+
+// total duration
+$course_id = $course['id'];
+$sql = "SELECT SUM(duration_in_minute) as total FROM `videos` 
+    INNER JOIN topics ON videos.topic_id = topics.id 
+    INNER JOIN courses ON topics.course_id = courses.id
+    WHERE courses.id = $course_id";
+$result = $conn->query($sql);
+$result = $result->fetch();
+
+$total =  $result['total'];
+$course['total'] = $total;
 
 ?>
 
@@ -195,7 +232,7 @@ $instructor = $result->fetch();
                                             <div class="accordion-item card">
                                                 <h2 class="accordion-header card-header" id="headingTwo2">
                                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo2" aria-expanded="false" aria-controls="collapseTwo2">
-                                                        <?php echo $topic['name'] ?> <span class="rbt-badge-5 ml--10">2hr 30min</span>
+                                                        <?php echo $topic['name'] ?> <span class="rbt-badge-5 ml--10"><?php echo $topic['total'] ?>min</span>
                                                     </button>
                                                 </h2>
                                                 <div id="collapseTwo2" class="accordion-collapse collapse" aria-labelledby="headingTwo2" data-bs-parent="#accordionExampleb2">
@@ -294,7 +331,7 @@ $instructor = $result->fetch();
                                     
     
                                     <div class="add-to-card-button mt--15">
-                                        <a class="rbt-btn btn-gradient icon-hover w-100 d-block text-center" href="/course/enroll-course.php?id=<?php echo $course['id'] ?>">
+                                        <a class="rbt-btn btn-gradient icon-hover w-100 d-block text-center" href="/course/enroll-course.php?course_id=<?php echo $course['id'] ?>">
                                             <span class="btn-text">Enroll now</span>
                                             <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                         </a>
@@ -307,14 +344,10 @@ $instructor = $result->fetch();
     
                                     <div class="rbt-widget-details has-show-more active">
                                         <ul class="has-show-more-inner-content rbt-course-details-list-wrapper">
-                                            <li><span>Start Date</span><span class="rbt-feature-value rbt-badge-5">5 Hrs 20 Min</span>
+                                            <li><span>Total Duration</span><span class="rbt-feature-value rbt-badge-5"><?php echo $course['total']?> Min</span>
                                             </li>
-                                            <li><span>Enrolled</span><span class="rbt-feature-value rbt-badge-5">100</span></li>
-                                            <li><span>Lectures</span><span class="rbt-feature-value rbt-badge-5">50</span></li>
-                                            <li><span>Skill Level</span><span class="rbt-feature-value rbt-badge-5">Basic</span></li>
-                                            
-                                            
-                                            
+                                            <li><span>Number of Learners</span><span class="rbt-feature-value rbt-badge-5"><?php echo $course['no_enrollments'] ?></span></li>
+                                            <li><span>Number of Topics</span><span class="rbt-feature-value rbt-badge-5"><?php echo $course['no_topics']?></span></li>
                                             
                                         </ul>
                                         

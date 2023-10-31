@@ -4,7 +4,7 @@ include('../auth/_check-loggedin.php');
 
 
 $id = $loggedInUser['id'];
-$sql = "SELECT * FROM `courses` INNER JOIN enrollments ON courses.id = enrollments.course_id WHERE enrollments.user_id = $id;";
+$sql = "SELECT * FROM `courses` INNER JOIN enrollments ON courses.id = enrollments.course_id WHERE enrollments.learner_id = $id;";
 
 
 // search course
@@ -182,6 +182,11 @@ $courses = $result->fetchAll();
                                                                     <li><i class="feather-book"></i>20 Lessons</li>
                                                                     <li><i class="feather-users"></i>40 Students</li>
                                                                 </ul>
+
+                                                                
+                                                                <form method="post" action="/course/delete-enrollment.php?learner_id=<?php echo $course['learner_id'] ?>&course_id=<?php echo $course['id'] ?>" class="d-inline">
+                                                                    <button class="btn btn-danger btn-lg" onclick="return confirm('Are you sure?');"> UnEnroll </button>
+                                                                </form>
                                                                 
                                                               
                                                             </div>

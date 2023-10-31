@@ -56,8 +56,6 @@ if (!empty($_POST)) {
     
     // if valid
     if (count($errors) == 0) {
-        $user_id = $loggedInUser['id'];
-
         // insert user into db
         $sql = "UPDATE `courses` SET `name` = '$name', `short_description` = '$short_description', `description` = '$description', `image` = '', `url_video_intro` = '$url_video_intro' WHERE `courses`.`id` = '$id';";
         $result = $conn->query($sql);

@@ -50,10 +50,10 @@ if (!empty($_POST)) {
     
     // if valid
     if (count($errors) == 0) {
-        $user_id = $loggedInUser['id'];
+        $instructor_id = $loggedInUser['id'];
 
         // insert user into db
-        $sql = "INSERT INTO `courses` (`id`, `name`, `short_description`, `description`, `image`, `url_video_intro`, `updated_at`, `user_id`) VALUES (NULL, '$name', '$short_description', '$description', NULL, '$url_video_intro', current_timestamp(), '$user_id');";
+        $sql = "INSERT INTO `courses` (`id`, `name`, `short_description`, `description`, `image`, `url_video_intro`, `updated_at`, `instructor_id`) VALUES (NULL, '$name', '$short_description', '$description', NULL, '$url_video_intro', current_timestamp(), '$instructor_id');";
         $result = $conn->query($sql);
 
         // redirect to /my courses
