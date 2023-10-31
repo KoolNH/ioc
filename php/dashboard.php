@@ -138,9 +138,6 @@
                                         <!-- End Single Card  -->
 
 
-
-            
-
                                         <!-- Start Single Card  -->
                                         <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                                             <div class="rbt-counterup variation-01 rbt-hover-03 rbt-border-dashed bg-pink-opacity">

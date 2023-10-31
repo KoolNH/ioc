@@ -1,10 +1,8 @@
 <?php
 
 
-include('./_check-loggedin.php');
-
-
 include('../inc/db-connect.php');
+include('./_check-loggedin.php');
 
 $errors = [];
 

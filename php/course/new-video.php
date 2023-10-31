@@ -3,61 +3,61 @@ include('../inc/db-connect.php');
 
 include('../auth/_check-loggedin.php');
 
+//
+if(!isset($_GET["topic_id"])){
+    header('location:/dashboard.php');
+}
+
+$topic_id = $_GET["topic_id"];
+// get topic by id
+$sql ="SELECT * FROM `topics` WHERE id='$topic_id' ";
+$result = $conn->query($sql);
+$topic = $result->fetch();
+
+
 $errors = [];
-$name = "";
-$short_description = "";
-$description = "";
-$url_video_intro ="";
+$title = "";
+$url ="";
 
 
 if (!empty($_POST)) {
     // get data
-    $name = $_POST['name'];
-    $short_description = $_POST['short_description'];
-    $description = $_POST['description'];
-    $url_video_intro = $_POST['url_video_intro'];
-  
+    $title = $_POST['title'];
+    $url = $_POST['url'];
+ 
 
     // clean data
-    $name = trim($name);
-    $short_description = trim($short_description);
-    $description = trim($description); 
-    $url_video_intro = trim($url_video_intro);
+    $title = trim($title);
+    $url = trim($url);
+   
     
     /* validate data */
 
-    if (empty($name)) {
-        $errors['name'] = 'Please enter Name!';
-    }
-    
-    if (empty($short_description)) {
-        $errors['short_description'] = 'Please input description!';
+    if (empty($title)) {
+        $errors['title'] = 'Please enter Title!';
     }
 
-    if (empty($description)) {
-        $errors['description'] = 'Please input description!';
-    }
-
-    if (empty($url_video_intro)) {
-        $errors['url_video_intro'] = 'Please get video!';
-    } else {
+    if (empty($url)) {
+        $errors['url'] = 'Please input URL!';
+    }  else {
         // check format email
         $urlPattern = '/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$/'; 
-        if (!preg_match($urlPattern, $url_video_intro)) {
-            $errors['url_video_intro'] = 'Invalid url!';
+        if (!preg_match($urlPattern, $url)) {
+            $errors['url'] = 'Invalid url!';
         }
     }
+  
     
     // if valid
     if (count($errors) == 0) {
         $user_id = $loggedInUser['id'];
 
         // insert user into db
-        $sql = "INSERT INTO `courses` (`id`, `name`, `short_description`, `description`, `image`, `url_video_intro`, `updated_at`, `user_id`) VALUES (NULL, '$name', '$short_description', '$description', NULL, '$url_video_intro', current_timestamp(), '$user_id');";
+        $sql = "INSERT INTO `videos` (`id`, `title`, `url`, `topic_id`) VALUES (NULL, '$title', '$url', '$topic_id');";
         $result = $conn->query($sql);
 
         // redirect to /my courses
-        header('Location: /course/my-courses.php?message=Added successfully!');
+        header("Location: /course/course-details.php?id={$topic['course_id']}&message=Added successfully!");
     }
     
 }
@@ -111,6 +111,8 @@ if (!empty($_POST)) {
             <!-- End Side Vav -->
             <a class="rbt-close_side_menu" href="javascript:void(0);"></a>
         </header>
+
+
         <!-- Mobile Menu Section -->
         <?php include('../inc/mobile-menu.php');?>
         <!-- Start Side Vav -->
@@ -122,6 +124,7 @@ if (!empty($_POST)) {
             <div class="rbt-banner-image"></div>
             <!-- End Banner BG Image  -->
         </div>
+
         <!-- Start Card Style -->
         <div class="rbt-dashboard-area rbt-section-overlayping-top rbt-section-gapBottom">
             <div class="container">
@@ -143,55 +146,21 @@ if (!empty($_POST)) {
                                     <form action="" method="post">
                                         <div class="content">
                                             <div class="section-title d-flex justify-content-between align-items-center">
-                                                <h4 class="rbt-title-style-3">Create New Course</h4>
+                                                <h4 class="rbt-title-style-3">Create New Video</h4>
                                                 
                                             </div>
                                             
                                             <!-- Start Profile Row  -->
                                             <div class="rbt-profile-row row row--15 mt--15">
                                                 <div class="col-lg-4 col-md-4">
-                                                    <div class="rbt-profile-content b2">Name</div>
+                                                    <div class="rbt-profile-content b2">Title</div>
                                                 </div>
                                                 <div class="col-lg-8 col-md-8">
                                                     <div class="rbt-profile-content b2">
-                                                        <input id="" placeholder="Name" type="text" name="name" value="<?php echo $name; ?>" >
+                                                        <input id="" placeholder="Title" type="text" name="title" value="<?php echo $title; ?>" >
                                                         
-                                                        <?php if (isset($errors['name'])): ?>
-                                                        <small class="text-danger"><?php echo $errors['name']; ?></small>
-                                                        <?php endif; ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- End Profile Row  -->
-                                            
-                                            <!-- Start Profile Row  -->
-                                            <div class="rbt-profile-row row row--15 mt--15">
-                                                <div class="col-lg-4 col-md-4">
-                                                    <div class="rbt-profile-content b2">Short Description</div>
-                                                </div>
-                                                <div class="col-lg-8 col-md-8">
-                                                    <div class="rbt-profile-content b2">
-                                                        <textarea id="" placeholder="Short Description" name="short_description" ><?php echo $short_description; ?></textarea>
-                                                        
-                                                        <?php if (isset($errors['short_description'])): ?>
-                                                        <small class="text-danger"><?php echo $errors['short_description']; ?></small>
-                                                        <?php endif; ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- End Profile Row  -->
-
-                                             <!-- Start Profile Row  -->
-                                             <div class="rbt-profile-row row row--15 mt--15">
-                                                <div class="col-lg-4 col-md-4">
-                                                    <div class="rbt-profile-content b2">Description</div>
-                                                </div>
-                                                <div class="col-lg-8 col-md-8">
-                                                    <div class="rbt-profile-content b2">
-                                                        <textarea id="" placeholder="Description" name="description" rows="10"><?php echo $description; ?></textarea>
-                                                        
-                                                        <?php if (isset($errors['description'])): ?>
-                                                        <small class="text-danger"><?php echo $errors['description']; ?></small>
+                                                        <?php if (isset($errors['title'])): ?>
+                                                        <small class="text-danger"><?php echo $errors['title']; ?></small>
                                                         <?php endif; ?>
                                                     </div>
                                                 </div>
@@ -201,24 +170,20 @@ if (!empty($_POST)) {
                                               <!-- Start Profile Row  -->
                                               <div class="rbt-profile-row row row--15 mt--15">
                                                 <div class="col-lg-4 col-md-4">
-                                                    <div class="rbt-profile-content b2">Video Intro</div>
+                                                    <div class="rbt-profile-content b2">URL</div>
                                                 </div>
                                                 <div class="col-lg-8 col-md-8">
                                                     <div class="rbt-profile-content b2">
-                                                        <input id="" placeholder="Url" type="text" name="url_video_intro" value="<?php echo $url_video_intro; ?>" >
+                                                        <input id="" placeholder="URL" type="text" name="url" value="<?php echo $url; ?>" >
                                                         
-                                                        <?php if (isset($errors['url_video_intro'])): ?>
-                                                        <small class="text-danger"><?php echo $errors['url_video_intro']; ?></small>
+                                                        <?php if (isset($errors['url'])): ?>
+                                                        <small class="text-danger"><?php echo $errors['url']; ?></small>
                                                         <?php endif; ?>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- End Profile Row  -->
-                                            
-                                            
-                                       
-                                            
-                                            
+                                    
                                             <div class="rbt-profile-row row row--15 mt--15">
                                                 <div class="col-lg-4 col-md-4">
                                                     

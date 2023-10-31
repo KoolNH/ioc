@@ -9,6 +9,8 @@ $sql = "SELECT * FROM `courses` WHERE `user_id`=$id";
 // search course
 $name ="";
 
+
+
 //search by name
 if(isset($_GET['name'])) {
     $name = $_GET['name'];
