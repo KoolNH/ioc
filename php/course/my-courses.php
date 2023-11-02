@@ -1,6 +1,8 @@
 <?php
 include('../inc/db-connect.php');
 include('../auth/_check-loggedin.php');
+include('../auth/_check-instructor.php');
+
 
 
 $id = $loggedInUser['id'];

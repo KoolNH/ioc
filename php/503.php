@@ -1,5 +1,6 @@
 <?php session_start(); ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,7 +66,7 @@
                 <div class="col-lg-12">
                     
                     <div class="row g-5">
-                       <h1>404 Not Found!</h1>
+                       <h1>503 Fobidden!</h1>
                     </div>
                 </div>
             </div>

@@ -2,6 +2,7 @@
 include('../inc/db-connect.php');
 
 include('../auth/_check-loggedin.php');
+// check if instructor
 
 $errors = [];
 $name = "";

@@ -46,7 +46,7 @@ if(isset($_SESSION['username'])) {
                     <?php if($loggedIn == true): ?>
 
                     <li class="account-access rbt-user-wrapper d-none d-xl-block">
-                        <a href="#"><i class="feather-user"></i>Admin</a>
+                        <a href="#"><i class="feather-user"></i><?php echo $_SESSION['username']; ?></a>
                         <div class="rbt-user-menu-list-wrapper">
                             <div class="inner">
                                 <div class="rbt-admin-profile">
