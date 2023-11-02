@@ -14,6 +14,6 @@ $result = $conn->query($sql);
 
 
 // redirect to /my courses
-header("Location: /course/course-details.php?id={$topic['course_id']}&message=Deleted successfully!");
+header("Location: /course/edit-course.php?id={$topic['course_id']}&message=Deleted successfully!");
 
 ?>

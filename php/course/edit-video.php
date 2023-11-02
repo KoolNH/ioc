@@ -24,17 +24,20 @@ $topic = $result->fetch();
 $errors = [];
 $title = $video['title'];
 $url = $video['url'];
+$duration_in_minute = $video['duration_in_minute'];
 
 
 if (!empty($_POST)) {
     // get data
     $title = $_POST['title'];
     $url = $_POST['url'];
+    $duration_in_minute = $_POST['duration_in_minute'];
  
 
     // clean data
     $title = trim($title);
     $url = trim($url);
+    $duration_in_minute = trim($duration_in_minute);
    
     
     /* validate data */
@@ -52,17 +55,21 @@ if (!empty($_POST)) {
             $errors['url'] = 'Invalid url!';
         }
     }
+
+    if (empty($duration_in_minute) || !is_numeric($duration_in_minute) || $duration_in_minute < 0) {
+        $errors['duration_in_minute'] = 'Invalid duration!';
+    }
   
     
     // if valid
     if (count($errors) == 0) {
 
         // insert user into db
-        $sql = "UPDATE `videos` SET `title` = '$title', `url` = '$url' WHERE `videos`.`id` = '$id';";
+        $sql = "UPDATE `videos` SET `title` = '$title', `url` = '$url', `duration_in_minute` = '$duration_in_minute' WHERE `videos`.`id` = '$id';";
         $result = $conn->query($sql);
 
         // redirect to /my courses
-        header("Location: /course/course-details.php?id={$topic['course_id']}&message=Updated successfully!");
+        header("Location: /course/edit-course.php?id={$topic['course_id']}&message=Updated successfully!");
     }
     
 }
@@ -183,6 +190,23 @@ if (!empty($_POST)) {
                                                         
                                                         <?php if (isset($errors['url'])): ?>
                                                         <small class="text-danger"><?php echo $errors['url']; ?></small>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End Profile Row  -->
+
+                                            <!-- Start Profile Row  -->
+                                            <div class="rbt-profile-row row row--15 mt--15">
+                                                <div class="col-lg-4 col-md-4">
+                                                    <div class="rbt-profile-content b2">Duration (in minutes)</div>
+                                                </div>
+                                                <div class="col-lg-8 col-md-8">
+                                                    <div class="rbt-profile-content b2">
+                                                        <input id="" placeholder="Title" type="text" name="duration_in_minute" value="<?php echo $duration_in_minute; ?>" >
+                                                        
+                                                        <?php if (isset($errors['duration_in_minute'])): ?>
+                                                        <small class="text-danger"><?php echo $errors['duration_in_minute']; ?></small>
                                                         <?php endif; ?>
                                                     </div>
                                                 </div>

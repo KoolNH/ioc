@@ -28,10 +28,10 @@ if(isset($_SESSION['username'])) {
 
                         </li>
                         <li class="">
-                            <a href="/courses.php">Course </a>
+                            <a href="/courses.php">All Courses </a>
                         </li>
                         <li class="">
-                            <a href="/instructor.php">Instructor </a>
+                            <a href="/instructors.php">Our Instructors </a>
                         </li>
 
                     </ul>

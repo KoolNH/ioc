@@ -17,6 +17,6 @@ try {
 
 // redirect to /my courses
 // header('Location: /course/learn-course.php?course_id=$course_id&message=Enrolled successfully!');
-header('Location: /course/enrolled-courses.php?course_id=$course_id&message=Enrolled successfully!');
+header("Location: /course/enrolled-courses.php?course_id=$course_id&message=Enrolled successfully!");
 
 ?>

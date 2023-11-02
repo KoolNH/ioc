@@ -16,8 +16,6 @@ if(isset($_GET['name'])) {
 }
 
 
-
-
 // pagintation
 $page = 1;
 if(isset($_GET['page'])){
@@ -166,7 +164,7 @@ $courses = $result->fetchAll();
                                                     <div class="col-lg-4 col-md-6 col-12">
                                                         <div class="rbt-card variation-01 rbt-hover">
                                                             <div class="rbt-card-img">
-                                                                <a href="/course/course-details.php?id=<?php echo $course['id'] ?>">
+                                                                <a href="/course/edit-course.php?id=<?php echo $course['id'] ?>">
                                                                     <img src="<?php echo $course['image']  ?>" alt="Card image">
                                                                 </a>
                                                             </div>
@@ -175,7 +173,7 @@ $courses = $result->fetchAll();
                                                                     
                                                                     
                                                                 </div>
-                                                                <h4 class="rbt-card-title"><a href="/course/course-details.php?id=<?php echo $course['id'] ?>"><?php echo $course['name'] ?></a>
+                                                                <h4 class="rbt-card-title"><a href="/course/edit-course.php?id=<?php echo $course['id'] ?>"><?php echo $course['name'] ?></a>
                                                                 </h4>
                                                                 <ul class="rbt-meta">
                                                                     <li><i class="feather-book"></i>20 Lessons</li>

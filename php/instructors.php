@@ -1,10 +1,7 @@
 
 <?php
 
-include('../inc/db-connect.php');
-
-
-
+include('inc//db-connect.php');
 
 // query db
 $sql ="SELECT * FROM `users` WHERE role='instructor'";
@@ -50,6 +47,28 @@ $sql = $sql . " LIMIT $limit OFFSET $offset";
 $result = $conn->query($sql);
 $instructors = $result->fetchAll();
 
+// count courses
+foreach ($instructors as $i => $instructor) {
+    $instructor_id = $instructor['id'];
+    $sql = "SELECT COUNT(*) AS no_courses FROM courses WHERE instructor_id='$instructor_id'";
+    $result = $conn->query($sql);
+    $result = $result->fetch();
+
+    $no_courses = $result['no_courses'];
+    $instructors[$i]['no_courses'] = $no_courses;
+}
+
+// count enrollments
+foreach ($instructors as $i => $instructor) {
+    $instructor_id = $instructor['id']; 
+    $sql = "SELECT COUNT(*) as no_enrollments FROM `enrollments` INNER JOIN courses ON enrollments.course_id = courses.id WHERE instructor_id='$instructor_id'";
+    $result = $conn->query($sql);
+    $result = $result->fetch();
+
+    $no_enrollments = $result['no_enrollments'];
+    $instructors[$i]['no_enrollments'] = $no_enrollments;
+}
+
 
 
 ?>
@@ -67,7 +86,7 @@ $instructors = $result->fetchAll();
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <?php include('../inc/css.php');?>
+    <?php include('inc//css.php');?>
     </head>
     
     <body>
@@ -77,14 +96,14 @@ $instructors = $result->fetchAll();
             <!-- Start Header Top  -->
             
             <!-- End Header Top  -->
-            <?php include('../inc/nav.php');?>
+            <?php include('inc//nav.php');?>
             <!-- Start Side Vav -->
-            <?php include('../inc/side-left.php');?>
+            <?php include('inc//side-left.php');?>
             <!-- End Side Vav -->
             <a class="rbt-close_side_menu" href="javascript:void(0);"></a>
         </header>
         <!-- Mobile Menu Section -->
-        <?php include('../inc/mobile-menu.php');?>
+        <?php include('inc//mobile-menu.php');?>
  
         <a class="close_side_menu" href="javascript:void(0);"></a>
         <div class="rbt-page-banner-wrapper">
@@ -152,7 +171,7 @@ $instructors = $result->fetchAll();
                                                     <div class="col-lg-4 col-md-6 col-12">
                                                         <div class="rbt-card variation-01 rbt-hover">
                                                             <div class="rbt-card-img">
-                                                                <a href="/profile.php">
+                                                                <a href="/user/profile.php?username=<?php echo $instructor['username']?>">
                                                                     <img src="<?php echo $instructor['avatar'];?>" alt="Card image">
                                                                 </a>
                                                             </div>
@@ -161,11 +180,11 @@ $instructors = $result->fetchAll();
                                                                     
                                                                     
                                                                 </div>
-                                                                <h4 class="rbt-card-title"><a href="course-details.html"><?php echo $instructor['name']; ?></a>
+                                                                <h4 class="rbt-card-title"><a href="/user/profile.php?username=<?php echo $instructor['username']?>"><?php echo $instructor['name']; ?></a>
                                                                 </h4>
                                                                 <ul class="rbt-meta">
-                                                                    <li><i class="feather-book"></i>20 Courses</li>
-                                                                    <li><i class="feather-users"></i>40 Students</li>
+                                                                    <li><i class="feather-book"></i><?php echo $instructor['no_courses'] ?> Courses</li>
+                                                                    <li><i class="feather-users"></i><?php echo $instructor['no_enrollments'] ?> Students</li>
                                                                 </ul>
                                                                 
                                                                 
@@ -214,7 +233,7 @@ $instructors = $result->fetchAll();
             </div>
         </div>
         <!-- Start Footer aera -->
-        <?php include ('../inc/footer.php');?>
+        <?php include ('inc//footer.php');?>
         <!-- End Footer aera -->
         <div class="rbt-progress-parent">
             <svg class="rbt-back-circle svg-inner" width="100%" height="100%" viewBox="-1 -1 102 102">

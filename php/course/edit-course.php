@@ -9,6 +9,35 @@ $sql ="SELECT * FROM `courses` WHERE id='$id' ";
 $result = $conn->query($sql);
 $course = $result->fetch();
 
+// get all topics of this course
+
+$sql ="SELECT * FROM topics WHERE course_id=$id;"; 
+$result = $conn->query($sql);
+$topics = $result->fetchAll();
+
+
+// foreach topic in topics
+foreach($topics as $i => $topic) {
+    // get all videos of this topic
+    $id = $topic['id'];
+    $sql ="SELECT * FROM videos WHERE topic_id=$id;"; 
+    $result = $conn->query($sql);
+    $videos = $result->fetchAll();
+
+    // topic['videos'] = $videos
+    $topics[$i]['videos'] = $videos;
+
+    $sql ="SELECT SUM(duration_in_minute) as total FROM videos WHERE topic_id=$id;";
+    $result = $conn->query($sql);
+    $result = $result->fetch();
+
+    $total = $result['total'];
+    $topics[$i]['total'] = $total;
+
+}
+
+
+
 $errors = [];
 $name = $course['name'];
 $short_description =  $course['short_description'];
@@ -115,6 +144,8 @@ if (!empty($_POST)) {
             <!-- End Side Vav -->
             <a class="rbt-close_side_menu" href="javascript:void(0);"></a>
         </header>
+
+        <?php include('../inc/message.php'); ?>
         <!-- Mobile Menu Section -->
         <?php include('../inc/mobile-menu.php');?>
         <!-- Start Side Vav -->
@@ -242,6 +273,69 @@ if (!empty($_POST)) {
                                     </div>
                                     
                                 </div>
+
+                                <!-- Start Course Content  -->
+                            <div class="course-content rbt-shadow-box coursecontent-wrapper mt--30" id="coursecontent">
+                                <div class="rbt-course-feature-inner">
+                                    <div class="section-title d-flex justify-content-between align-items-center">
+                                        <h4 class="rbt-title-style-3">Manage Course Content</h4>
+                                        <a href='/course/new-topic.php?course_id=<?php echo $course['id'] ?>' class="btn btn-primary btn-lg  " > Add New Topic </a>
+                                    </div>
+                                    <div class="rbt-accordion-style rbt-accordion-02 accordion">
+                                        <div class="accordion" id="accordionExampleb2">
+                                            
+                                            
+                                            <?php foreach($topics as $topic): ?>
+                                            <div class="accordion-item card">
+                                                <h2 class="accordion-header card-header" id="headingTwo2">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo2" aria-expanded="false" aria-controls="collapseTwo2">
+                                                        <?php echo $topic['name'] ?> <span class="rbt-badge-5 ml--10"><?php echo $topic['total']; ?> min</span>
+                                                    </button>
+                                                </h2>
+                                                <div id="collapseTwo2" class="accordion-collapse collapse" aria-labelledby="headingTwo2" data-bs-parent="#accordionExampleb2">
+                                                    <div class="accordion-body card-body pr--0">
+                                                        <div style="text-align:right;">
+                                                            <a class="btn btn-secondary btn-lg" href="/course/edit-topic.php?id=<?php echo $topic['id'] ?>"> Edit </a>
+
+                                                            <form method="post" action="/course/delete-topic.php?id=<?php echo $topic['id'] ?>" class="d-inline">
+                                                                <button class="btn btn-danger btn-lg" onclick="return confirm('Are you sure?');"> Delete </button>
+                                                            </form>
+                                                            <a href='/course/new-video.php?topic_id=<?php echo $topic['id'] ?>' class="btn btn-primary btn-lg  " > Add New Video </a>
+                                                        </div>
+                                                        
+                                                        <ul class="rbt-course-main-content liststyle">
+                                                            
+                                                            <?php foreach($topic['videos'] as $video): ?>
+                                                            
+                                                            <li>
+                                                                <div class="course-content-left d-flex justify-content-between">
+                                                                    <a href="lesson.html">
+                                                                        <i class="feather-play-circle"></i> <span class="text"><?php echo $video['title'] ?></span>
+                                                                    </a>
+
+                                                                    <div class="d-flex justify-content-center align-items-center">
+                                                                        <a class="btn btn-secondary btn-md" href="/course/edit-video.php?id=<?php echo $video['id'] ?>"> Edit </a>
+                                                                        &nbsp;
+                                                                        <form method="post" action="/course/delete-video.php?id=<?php echo $video['id'] ?>" class="d-inline">
+                                                                            <button class="btn btn-danger btn-md" onclick="return confirm('Are you sure?');"> Delete </button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <?php endforeach; ?>
+                                                            
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php endforeach; ?>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Course Content  -->
                             </div>
                         </div>
                     </div>

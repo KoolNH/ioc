@@ -4,6 +4,10 @@ include('../inc/db-connect.php');
 include('../auth/_check-loggedin.php');
 
 // get user with username
+if (isset($_GET['username'])) {
+    $username = $_GET['username'];
+}
+
 $sql ="SELECT * FROM `users` WHERE username='$username' ";
 $result = $conn->query($sql);
 $user = $result->fetch();

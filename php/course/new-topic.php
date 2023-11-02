@@ -40,7 +40,7 @@ if (!empty($_POST)) {
         $result = $conn->query($sql);
 
         // redirect to /my courses
-        header("Location: /course/course-details.php?id=$course_id&message=Added successfully!");
+        header("Location: /course/edit-course.php?id=$course_id&message=Added successfully!");
     }
     
 }

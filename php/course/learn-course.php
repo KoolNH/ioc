@@ -1,14 +1,57 @@
+<?php
+
+
+include('../inc/db-connect.php');
+include('../auth/_check-loggedin.php');
+
+// get course with id
+$id = $_GET['id'];
+$sql ="SELECT * FROM courses WHERE id='$id';"; 
+$result = $conn->query($sql);
+$course = $result->fetch();
+
+// get all topics of this course
+
+$sql ="SELECT * FROM topics WHERE course_id=$id;"; 
+$result = $conn->query($sql);
+$topics = $result->fetchAll();
+
+// foreach topic in topics
+foreach($topics as $i => $topic) {
+  // get all videos of this topic
+  $id = $topic['id'];
+  $sql ="SELECT * FROM videos WHERE topic_id=$id;"; 
+  $result = $conn->query($sql);
+  $videos = $result->fetchAll();
+  
+  // topic['videos'] = $videos
+  $topics[$i]['videos'] = $videos;
+}
+
+/* video */
+if (isset($topics[0]['videos'][0])) {
+  $current_video = $topics[0]['videos'][0];
+  
+  if (isset($_GET['video_id'])) {
+    $video_id = $_GET['video_id'];
+    $sql ="SELECT * FROM videos WHERE id=$video_id;"; 
+    $result = $conn->query($sql);
+    $current_video = $result->fetch();
+  }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en" class=" sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers"><head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Lesson - Online Courses &amp; Education Bootstrap5 Template</title>
   <meta name="robots" content="noindex, follow">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-  <!-- Favicon -->
-  <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.png">
+ 
   
   <!-- CSS
     ============================================ -->
@@ -41,9 +84,9 @@
         <div class="rbt-lesson-leftsidebar">
           <div class="rbt-course-feature-inner rbt-search-activation">
             <div class="section-title">
-              <h4 class="rbt-title-style-3">Course Content</h4>
+              <h4 class="rbt-title-style-3"><?php echo $course['name'] ?></h4>
             </div>
-            
+
             <div class="lesson-search-wrapper">
               <form action="#" class="rbt-search-style-1">
                 <input class="rbt-search-active" type="text" placeholder="Search Lesson">
@@ -55,188 +98,59 @@
             
             <div class="rbt-accordion-style rbt-accordion-02 for-right-content accordion">
               
-              
               <div class="accordion" id="accordionExampleb2">
                 
-                <div class="accordion-item card">
-                  <h2 class="accordion-header card-header" id="headingTwo1">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" aria-expanded="true" data-bs-target="#collapseTwo1" aria-controls="collapseTwo1">
-                      Welcome Histudy <span class="rbt-badge-5 ml--10">1/2</span>
-                    </button>
-                  </h2>
-                  <div id="collapseTwo1" class="accordion-collapse collapse show" aria-labelledby="headingTwo1">
-                    <div class="accordion-body card-body">
-                      <ul class="rbt-course-main-content liststyle">
-                        
-                        <li>
-                          <a href="lesson.html" class="active">
-                            <div class="course-content-left">
-                              <i class="feather-play-circle"></i> <span class="text">Course
-                                Intro</span>
-                              </div>
-                              <div class="course-content-right">
-                                <span class="min-lable">30 min</span>
-                                <span class="rbt-check"><i class="feather-check"></i></span>
-                              </div>
-                            </a>
-                          </li>
-                          
-                          <li>
-                            <a href="lesson-intro.html">
-                              <div class="course-content-left">
-                                <i class="feather-file-text"></i> <span class="text">Introduction</span>
-                              </div>
-                              <div class="course-content-right">
-                                <span class="rbt-check"><i class="feather-check"></i></span>
-                              </div>
-                            </a>
-                          </li>
-                          
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
+                <?php foreach($topics as $i => $topic): ?>
                   
                   <div class="accordion-item card">
-                    <h2 class="accordion-header card-header" id="headingTwo4">
-                      <button class="accordion-button" type="button" data-bs-toggle="collapse" aria-expanded="true" data-bs-target="#collapseTwo4" aria-controls="collapseTwo4">
-                        Welcome Lessons <span class="rbt-badge-5 ml--10">1/3</span>
+                    <h2 class="accordion-header card-header" id="headingTwo<?php echo $i; ?>">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" aria-expanded="true" data-bs-target="#collapseTwo<?php echo $i; ?>" aria-controls="collapseTwo<?php echo $i; ?>">
+                        <?php echo $topic['name'] ?>
                       </button>
-                    </h2>
-                    <div id="collapseTwo4" class="accordion-collapse collapse show" aria-labelledby="headingTwo4">
+                    </h2>               
+                    <div id="collapseTwo<?php echo $i; ?>" class="accordion-collapse collapse show" aria-labelledby="headingTwo<?php echo $i; ?>">
                       <div class="accordion-body card-body">
                         <ul class="rbt-course-main-content liststyle">
-                          
+                          <?php foreach($topic['videos'] as $video): ?>
                           <li>
-                            <a href="lesson.html" class="active">
+                            <a href="/course/learn-course.php?id=<?php echo $course['id'] ?>&video_id=<?php echo $video['id'] ?>" class="<?php if ($video['id'] == $current_video['id']) echo 'active'; ?>">
                               <div class="course-content-left">
-                                <i class="feather-play-circle"></i> <span class="text">Hello World!
-                                </span>
+                                <i class="feather-play-circle"></i> <span class="text"><?php echo $video['title']?></span>
                               </div>
                               <div class="course-content-right">
-                                <span class="min-lable">0.37</span>
-                                <span class="rbt-check"><i class="feather-check"></i></span>
+                                <span class="min-lable"><?php echo $video['duration_in_minute']?> min</span>
                               </div>
                             </a>
                           </li>
+                          <?php endforeach; ?>  
                           
-                          <li>
-                            <a href="#">
-                              <div class="course-content-left">
-                                <i class="feather-play-circle"></i> <span class="text">Values and Variables</span>
-                              </div>
-                              <div class="course-content-right">
-                                <span class="min-lable">20 min</span>
-                                <span class="rbt-check unread"><i class="feather-circle"></i></span>
-                              </div>
-                            </a>
-                          </li>
-                          
-                          <li>
-                            <a href="#">
-                              <div class="course-content-left">
-                                <i class="feather-play-circle"></i> <span class="text">Basic Operators
-                                </span>
-                              </div>
-                              <div class="course-content-right">
-                                <span class="min-lable">15 min</span>
-                                <span class="rbt-check unread"><i class="feather-circle"></i></span>
-                              </div>
-                            </a>
-                          </li>
-                          
-                          
+                            
                         </ul>
                       </div>
                     </div>
                   </div>
-                  
-                  <div class="accordion-item card">
-                    <h2 class="accordion-header card-header" id="headingTwo2">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#collapseTwo2" aria-controls="collapseTwo2">
-                        Histudy Quiz <span class="rbt-badge-5 ml--10">1/2</span>
-                      </button>
-                    </h2>
-                    <div id="collapseTwo2" class="accordion-collapse collapse" aria-labelledby="headingTwo2">
-                      <div class="accordion-body card-body">
-                        <ul class="rbt-course-main-content liststyle">
-                          <li>
-                            <a href="lesson-quiz.html">
-                              <div class="course-content-left">
-                                <i class="feather-help-circle"></i> <span class="text">Histudy Quiz Start</span>
-                              </div>
-                              <div class="course-content-right">
-                                <span class="rbt-check unread"><i class="feather-circle"></i></span>
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="lesson-quiz-result.html">
-                              <div class="course-content-left">
-                                <i class="feather-help-circle"></i> <span class="text">Histudy Quiz Result</span>
-                              </div>
-                              <div class="course-content-right">
-                                <span class="rbt-check unread"><i class="feather-circle"></i></span>
-                              </div>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="accordion-item card">
-                    <h2 class="accordion-header card-header" id="headingTwo3">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#collapseTwo3" aria-controls="collapseTwo3">
-                        Histudy Assignments <span class="rbt-badge-5 ml--10">1/2</span>
-                      </button>
-                    </h2>
-                    <div id="collapseTwo3" class="accordion-collapse collapse" aria-labelledby="headingTwo3">
-                      <div class="accordion-body card-body">
-                        <ul class="rbt-course-main-content liststyle">
-                          <li>
-                            <a href="lesson-assignments.html">
-                              <div class="course-content-left">
-                                <i class="feather-file-text"></i> <span class="text">Histudy Assignments</span>
-                              </div>
-                              <div class="course-content-right">
-                                <span class="rbt-check unread"><i class="feather-circle"></i></span>
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="lesson-assignments-submit.html">
-                              <div class="course-content-left">
-                                <i class="feather-file-text"></i> <span class="text">Histudy Assignments Submit</span>
-                              </div>
-                              <div class="course-content-right">
-                                <span class="rbt-check unread"><i class="feather-circle"></i></span>
-                              </div>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  
-                </div>
                 
+                <?php endforeach; ?>
                 
               </div>
             </div>
+            
+            
+            </div>
           </div>
           
+          <?php if (isset($current_video)): ?>
           <div class="rbt-lesson-rightsidebar overflow-hidden lesson-video">
             <div class="lesson-top-bar">
               <div class="lesson-top-left">
                 <div class="rbt-lesson-toggle">
                   <button class="lesson-toggle-active btn-round-white-opacity" title="Toggle Sidebar"><i class="feather-arrow-left"></i></button>
                 </div>
-                <h5>The Complete Histudy 2023: From Zero to Expert!</h5>
+                <h5><?php echo $current_video['title'] ?></h5>
               </div>
               <div class="lesson-top-right">
                 <div class="rbt-btn-close">
-                  <a href="course-details.html" title="Go Back to Course" class="rbt-round-btn"><i class="feather-x"></i></a>
+                  <a href="course/enrolled-courses.php" title="Go Back to Course" class="rbt-round-btn"><i class="feather-x"></i></a>
                 </div>
               </div>
             </div>
@@ -244,33 +158,13 @@
               <div class="plyr plyr--full-ui plyr--video plyr--youtube plyr--fullscreen-enabled plyr--paused plyr--stopped plyr__poster-enabled"><div class="plyr__controls"><button class="plyr__controls__item plyr__control" type="button" data-plyr="play" aria-pressed="false" aria-label="Play, Hands Typing On Macbook - Free HD Stock Footage (No Copyright) Office Work Working"><svg class="icon--pressed" aria-hidden="true" focusable="false"><use xlink:href="#plyr-pause"></use></svg><svg class="icon--not-pressed" aria-hidden="true" focusable="false"><use xlink:href="#plyr-play"></use></svg><span class="label--pressed plyr__sr-only">Pause</span><span class="label--not-pressed plyr__sr-only">Play</span></button><div class="plyr__controls__item plyr__progress__container"><div class="plyr__progress"><input data-plyr="seek" type="range" min="0" max="100" step="0.01" value="0" autocomplete="off" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="37" aria-valuenow="0" id="plyr-seek-8555" aria-valuetext="00:00 of 00:37" style="--value: 0%;" seek-value="66.04215456674473"><progress class="plyr__progress__buffer" min="0" max="100" value="0" role="progressbar" aria-hidden="true">% buffered</progress><span class="plyr__tooltip" style="left: 66.5531%;">00:24</span></div></div><div class="plyr__controls__item plyr__time--current plyr__time" aria-label="Current time" role="timer">00:37</div><div class="plyr__controls__item plyr__volume"><button type="button" class="plyr__control" data-plyr="mute" aria-pressed="false"><svg class="icon--pressed" aria-hidden="true" focusable="false"><use xlink:href="#plyr-muted"></use></svg><svg class="icon--not-pressed" aria-hidden="true" focusable="false"><use xlink:href="#plyr-volume"></use></svg><span class="label--pressed plyr__sr-only">Unmute</span><span class="label--not-pressed plyr__sr-only">Mute</span></button><input data-plyr="volume" type="range" min="0" max="1" step="0.05" value="1" autocomplete="off" role="slider" aria-label="Volume" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" id="plyr-volume-8555" aria-valuetext="100.0%" style="--value: 100%;"></div><button class="plyr__controls__item plyr__control" type="button" data-plyr="fullscreen" aria-pressed="false"><svg class="icon--pressed" aria-hidden="true" focusable="false"><use xlink:href="#plyr-exit-fullscreen"></use></svg><svg class="icon--not-pressed" aria-hidden="true" focusable="false"><use xlink:href="#plyr-enter-fullscreen"></use></svg><span class="label--pressed plyr__sr-only">Exit fullscreen</span><span class="label--not-pressed plyr__sr-only">Enter fullscreen</span></button></div>
               <div class="plyr__video-wrapper plyr__video-embed" style="aspect-ratio: 16 / 9;"><iframe id="youtube-5465" frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" title="Player for Hands Typing On Macbook - Free HD Stock Footage (No Copyright) Office Work Working" width="640" height="360" src="https://www.youtube.com/embed/qKzhrXqT6oE?autoplay=0&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;cc_load_policy=0&amp;cc_lang_pref=auto&amp;widget_referrer=https%3A%2F%2Frainbowit.net%2Fhtml%2Fhistudy%2Flesson.html&amp;rel=0&amp;showinfo=0&amp;iv_load_policy=3&amp;modestbranding=1&amp;customControls=true&amp;noCookie=false&amp;enablejsapi=1&amp;origin=https%3A%2F%2Frainbowit.net&amp;widgetid=1"></iframe><div class="plyr__poster" style="background-image: url(&quot;https://i.ytimg.com/vi/qKzhrXqT6oE/maxresdefault.jpg&quot;);"></div></div>
               <button type="button" class="plyr__control plyr__control--overlaid" data-plyr="play" aria-pressed="false" aria-label="Play, Hands Typing On Macbook - Free HD Stock Footage (No Copyright) Office Work Working"><svg aria-hidden="true" focusable="false"><use xlink:href="#plyr-play"></use></svg><span class="plyr__sr-only">Play</span></button></div>
-              <div class="content">
-                <div class="section-title">
-                  <h4>About Lesson</h4>
-                  <p>Let us analyze the greatest hits of the past and learn what makes these tracks so
-                    special. </p>
-                  </div>
-                </div>
-              </div>
               
-              <div class="bg-color-extra2 ptb--15 overflow-hidden">
-                <div class="rbt-button-group">
-                  
-                  <a class="rbt-btn icon-hover icon-hover-left btn-md bg-primary-opacity" href="#">
-                    <span class="btn-icon"><i class="feather-arrow-left"></i></span>
-                    <span class="btn-text">Previous</span>
-                  </a>
-                  
-                  <a class="rbt-btn icon-hover btn-md" href="#">
-                    <span class="btn-text">Next</span>
-                    <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                  </a>
-                  
-                </div>
-              </div>
+              
+              
               
             </div>
           </div>
+          <?php endif; ?>
         </div>
         
         

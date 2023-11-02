@@ -53,8 +53,15 @@ if (!empty($_POST)) {
                  // create session
                  $_SESSION['username'] = $user['username'];
                  
-                 // redirect to dashboard
-                header('Location:/dashboard.php');                 
+                 // if admin -> redirect admin
+                 if ($user['role'] == 'admin') {
+                    header('Location:/admin');    
+                 } else {
+                    // else  redirect to dashboard
+                    header('Location:/dashboard.php');  
+                 }
+
+                   
              } else {
                  // invalid credentials
                  $errors['password'] = 'Incorect PassWord!';

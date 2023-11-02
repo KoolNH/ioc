@@ -1,6 +1,24 @@
 <?php
     include('inc/db-connect.php');
     include('auth/_check-loggedin.php');
+
+    // count my courses
+    $id = $loggedInUser['id'];
+    $sql = "SELECT COUNT(*) AS no_my_courses FROM courses WHERE instructor_id='$id'";
+    $result = $conn->query($sql);
+    $result = $result->fetch();
+
+    $no_my_courses = $result['no_my_courses'];
+    $loggedInUser['no_my_courses'] = $no_my_courses;
+
+    // count enrolled courses
+    $id = $loggedInUser['id'];
+    $sql = "SELECT COUNT(*) AS no_enrolled_courses FROM enrollments WHERE learner_id='$id'";
+    $result = $conn->query($sql);
+    $result = $result->fetch();
+
+    $no_enrolled_courses = $result['no_enrolled_courses'];
+    $loggedInUser['no_enrolled_courses'] = $no_enrolled_courses;
 ?>
 
 <!DOCTYPE html>
@@ -120,6 +138,7 @@
                                     </div>
                                     <div class="row g-5">
 
+                                        <?php if ($loggedInUser['role'] == 'instructor'): ?>
                                         <!-- Start Single Card  -->
                                         <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                                             <div class="rbt-counterup variation-01 rbt-hover-03 rbt-border-dashed bg-primary-opacity">
@@ -128,15 +147,15 @@
                                                         <i class="feather-book-open"></i>
                                                     </div>
                                                     <div class="content">
-                                                        <h3 class="counter without-icon color-primary"><span class="odometer" data-count="30">00</span>
+                                                        <h3 class="counter without-icon color-primary"><span class="odometer" data-count="<?php echo $loggedInUser['no_my_courses']; ?>">00</span>
                                                         </h3>
-                                                        <span class="rbt-title-style-2 d-block">Courses</span>
+                                                        <span class="rbt-title-style-2 d-block">My Courses</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- End Single Card  -->
-
+                                        <?php endif; ?>
 
                                         <!-- Start Single Card  -->
                                         <div class="col-lg-4 col-md-4 col-sm-6 col-12">
@@ -155,25 +174,22 @@
                                         </div>
                                         <!-- End Single Card  -->
 
+                                        <!-- Start Single Card  -->
                                         <div class="col-lg-4 col-md-4 col-sm-6 col-12">
-                                            <div class="rbt-counterup variation-01 rbt-hover-03 rbt-border-dashed bg-warning-opacity">
+                                            <div class="rbt-counterup variation-01 rbt-hover-03 rbt-border-dashed bg-primary-opacity">
                                                 <div class="inner">
-                                                    <div class="rbt-round-icon bg-warning-opacity">
-                                                        <i class="feather-users"></i>
+                                                    <div class="rbt-round-icon bg-primary-opacity">
+                                                        <i class="feather-book-open"></i>
                                                     </div>
                                                     <div class="content">
-                                                        <h3 class="counter without-icon color-warning"><span class="odometer" data-count="160">00</span>
+                                                        <h3 class="counter without-icon color-primary"><span class="odometer" data-count="<?php echo $loggedInUser['no_enrolled_courses']; ?>">00</span>
                                                         </h3>
-                                                        <span class="rbt-title-style-2 d-block">Instructor</span>
+                                                        <span class="rbt-title-style-2 d-block">Enrolled Courses</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
-
-
-
-
+                                        <!-- End Single Card  -->
                                     </div>
                                 </div>
                             </div>

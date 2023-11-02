@@ -46,7 +46,27 @@ $sql = $sql . " LIMIT $limit OFFSET $offset";
 $result = $conn->query($sql);
 $courses = $result->fetchAll();
 
+// count topics
+foreach ($courses as $i => $course) {
+    $course_id = $course['id'];
+    $sql = "SELECT COUNT(*) AS no_topics FROM topics WHERE course_id='$course_id'";
+    $result = $conn->query($sql);
+    $result = $result->fetch();
 
+    $no_topics = $result['no_topics'];
+    $courses[$i]['no_topics'] = $no_topics;
+}
+
+// count enrollments
+foreach ($courses as $i => $course) {
+    $course_id = $course['id']; 
+    $sql = "SELECT COUNT(*) as no_enrollments FROM `enrollments` WHERE course_id='$course_id'";
+    $result = $conn->query($sql);
+    $result = $result->fetch();
+
+    $no_enrollments = $result['no_enrollments'];
+    $courses[$i]['no_enrollments'] = $no_enrollments;
+}
 
 ?>
 
@@ -167,7 +187,7 @@ $courses = $result->fetchAll();
                                                     <div class="col-lg-4 col-md-6 col-12">
                                                         <div class="rbt-card variation-01 rbt-hover">
                                                             <div class="rbt-card-img">
-                                                                <a href="/course/course-details.php?id=<?php echo $course['id'] ?>">
+                                                                <a href="/course/learn-course.php?id=<?php echo $course['id'] ?>">
                                                                     <img src="<?php echo $course['image']  ?>" alt="Card image">
                                                                 </a>
                                                             </div>
@@ -176,11 +196,11 @@ $courses = $result->fetchAll();
                                                                     
                                                                     
                                                                 </div>
-                                                                <h4 class="rbt-card-title"><a href="/course/course-details.php?id=<?php echo $course['id'] ?>"><?php echo $course['name'] ?></a>
+                                                                <h4 class="rbt-card-title"><a href="/course/learn-course.php?id=<?php echo $course['id'] ?>"><?php echo $course['name'] ?></a>
                                                                 </h4>
                                                                 <ul class="rbt-meta">
-                                                                    <li><i class="feather-book"></i>20 Lessons</li>
-                                                                    <li><i class="feather-users"></i>40 Students</li>
+                                                                    <li><i class="feather-book"></i><?php echo $course['no_topics'] ?> Topics</li>
+                                                                    <li><i class="feather-users"></i><?php echo $course['no_enrollments'] ?> Students</li>
                                                                 </ul>
 
                                                                 
