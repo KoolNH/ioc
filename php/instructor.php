@@ -1,6 +1,16 @@
+<?php
+ 
+
+ 
+
+?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
+
+
 
 <head>
     <meta charset="utf-8">
@@ -40,14 +50,14 @@
         <!-- Start Header Top  -->
 
         <!-- End Header Top  -->
-        <?php include('inc/nav.php');?>
+        <?php include('./inc/nav.php');?>
         <!-- Start Side Vav -->
-        <?php include('inc/side-left.php');?>
+        <?php include('./inc/side-left.php');?>
         <!-- End Side Vav -->
         <a class="rbt-close_side_menu" href="javascript:void(0);"></a>
     </header>
     <!-- Mobile Menu Section -->
-    <?php include('inc/mobile-menu.php');?>
+    <?php include('./inc/mobile-menu.php');?>
     <!-- Start Side Vav -->
 
     <!-- End Side Vav -->
