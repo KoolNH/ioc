@@ -1,10 +1,12 @@
 <?php
+session_start();
 include('../inc/db-connect.php');
 include('../auth/_check-loggedin.php');
 
 
+
 $id = $loggedInUser['id'];
-$sql = "SELECT * FROM `courses` INNER JOIN enrollments ON courses.id = enrollments.course_id WHERE enrollments.learner_id = $id;";
+$sql = "SELECT * FROM `courses` INNER JOIN enrollments ON courses.id = enrollments.course_id WHERE enrollments.learner_id = $id AND is_hidden <> '1'";
 
 
 // search course
@@ -133,7 +135,8 @@ foreach ($courses as $i => $course) {
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <?php include('../inc/_instructor-info.php') ?>
+                        <?php include("../user/user-top.php"); ?>
+                        
                         
                         <div class="row g-5">
                             <div class="col-lg-3">
@@ -148,8 +151,11 @@ foreach ($courses as $i => $course) {
                                     <div class="content">
                                         
                                         <div class="section-title">
-                                            <h4 class="rbt-title-style-3">Enrolled Courses
-                                            </h4>
+                                            <div class="section-title d-flex justify-content-between align-items-center">
+                                            <h4 class="rbt-title-style-3">Enrolled courses</h4>
+
+                                            <a href='/courses.php' class='btn btn-success btn-lg'>Enroll course</a>
+                                        </div>
                                             
                                             <form action="" class="row row--15">
                                                 <div class="col-lg">
@@ -229,7 +235,7 @@ foreach ($courses as $i => $course) {
                                                                 <li class="<?php if($page == $i) { echo 'active'; } ?>"><a href="?page=<?php echo $i; ?>&name=<?php echo $name;?>"><?php echo $i; ?></a></li>
                                                             <?php endfor; ?>
 
-                                                            <?php if($page != $noPages): ?>
+                                                            <?php if($page <= $noPages): ?>
                                                                 <li><a href="?page=<?php echo $page + 1 ?>&name=<?php echo $name;?>" aria-label="Next"><i class="feather-chevron-right"></i></a></li>
                                                             <?php endif; ?>
                                                         </ul>

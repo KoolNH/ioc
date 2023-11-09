@@ -3,7 +3,7 @@ session_start();
 
 include('./inc/db-connect.php');
 
-$sql = "SELECT * FROM `courses` ";
+$sql = "SELECT * FROM `courses` WHERE is_hidden <> '1'";
 
 // search course
 $name ="";
@@ -11,7 +11,7 @@ $name ="";
 //search by name
 if(isset($_GET['name'])) {
     $name = $_GET['name'];
-    $sql = $sql . " WHERE name LIKE  '%$name%'";
+    $sql = $sql . " AND name LIKE  '%$name%'";
 }
 
 
@@ -213,7 +213,7 @@ foreach ($courses as $i => $course) {
                                                                 <li class="<?php if($page == $i) { echo 'active'; } ?>"><a href="?page=<?php echo $i; ?>&name=<?php echo $name;?>"><?php echo $i; ?></a></li>
                                                             <?php endfor; ?>
 
-                                                            <?php if($page != $noPages): ?>
+                                                            <?php if($page <= $noPages): ?>
                                                                 <li><a href="?page=<?php echo $page + 1 ?>&name=<?php echo $name;?>" aria-label="Next"><i class="feather-chevron-right"></i></a></li>
                                                             <?php endif; ?>
                                                         </ul>

@@ -1,3 +1,7 @@
+<?php 
+    include('../auth/_check-loggedin.php');
+?>
+
 <div class="rbt-header-wrapper header-space-betwween header-sticky">
     <div class="container-fluid">
         <div class="mainbar-row rbt-navigation-center align-items-center">
@@ -31,10 +35,10 @@
                             <div class="inner">
                                 <div class="rbt-admin-profile">
                                     <div class="admin-thumbnail">
-                                        <img src="assets/images/team/avatar.jpg" alt="User Images">
+                                        <img src="<?php echo $loggedInUser['avatar']; ?>" alt="User Images">
                                     </div>
                                     <div class="admin-info">
-                                        <span class="name">Nipa Bali</span>
+                                        <span class="name"><?php echo $loggedInUser['name'] ?></span>
                                         
                                     </div>
                                 </div>
@@ -50,7 +54,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/logout.php">
+                                        <a href="/auth/logout.php">
                                             <i class="feather-log-out"></i>
                                             <span>Logout</span>
                                         </a>
@@ -66,10 +70,10 @@
                             <div class="inner">
                                 <div class="rbt-admin-profile">
                                     <div class="admin-thumbnail">
-                                        <img src="assets/images/team/avatar.jpg" alt="User Images">
+                                        <img src="<?php echo $loggedInUser['avatar'] ?>" alt="User Images">
                                     </div>
                                     <div class="admin-info">
-                                        <span class="name">Nipa Bali</span>
+                                        <span class="name"><?php echo $loggedInUser['name'] ?></span>
                                         <a class="rbt-btn-link color-primary" href="profile.html">View Profile</a>
                                     </div>
                                 </div>

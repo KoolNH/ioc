@@ -1,9 +1,21 @@
 <?php
+
 $loggedIn = false;
 
 if(isset($_SESSION['username'])) {
     $loggedIn = true;
+
+    $username = $_SESSION['username'];
+
+    if (!isset($loggedInUser)) {
+         // get user with username
+        $sql ="SELECT * FROM `users` WHERE username='$username' ";
+        $result = $conn->query($sql);
+        $loggedInUser = $result->fetch();
+    }
 }
+
+   
 ?>
 
 <div class="rbt-header-wrapper header-space-betwween header-sticky">
@@ -24,7 +36,7 @@ if(isset($_SESSION['username'])) {
                 <nav class="mainmenu-nav">
                     <ul class="mainmenu">
                         <li class="">
-                            <a href="/dashboard.php">Home </a>
+                            <a href="/">Home </a>
 
                         </li>
                         <li class="">
@@ -51,10 +63,10 @@ if(isset($_SESSION['username'])) {
                             <div class="inner">
                                 <div class="rbt-admin-profile">
                                     <div class="admin-thumbnail">
-                                        <img src="assets/images/team/avatar.jpg" alt="User Images">
+                                        <img src="<?php echo $loggedInUser['avatar'];?>" alt="User Images">
                                     </div>
                                     <div class="admin-info">
-                                        <span class="name">Kool</span>
+                                        <span class="name"><?php echo $loggedInUser['name'];?></span>
                                         <a class="rbt-btn-link color-primary" href="/user/profile.php">View Profile</a>
                                     </div>
                                 </div>
@@ -67,7 +79,7 @@ if(isset($_SESSION['username'])) {
                                     </li>
 
                                     <li>
-                                        <a href="instructor-enrolled-courses.html">
+                                        <a href="/course/enrolled-courses.php">
                                             <i class="feather-shopping-bag"></i>
                                             <span>Enrolled Courses</span>
                                         </a>
@@ -193,7 +205,7 @@ if(isset($_SESSION['username'])) {
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="index.html">
+                                        <a href="index.htm">
                                             <i class="feather-log-out"></i>
                                             <span>Logout</span>
                                         </a>

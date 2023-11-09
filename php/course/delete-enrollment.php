@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('../inc/db-connect.php');
 include('../auth/_check-loggedin.php');
 

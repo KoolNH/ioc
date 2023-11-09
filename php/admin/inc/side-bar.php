@@ -9,7 +9,7 @@
                 <nav class="mainmenu-nav">
                     <ul class="dashboard-mainmenu rbt-default-sidebar-list">
                         <li><a href="/admin"><i class="feather-home"></i><span>Dashboard</span></a></li>
-                        <li><a href="/admin/profile.php"><i class="feather-user"></i><span>My Profile</span></a></li>
+                        <li><a href="/user/profile.php"><i class="feather-user"></i><span>My Profile</span></a></li>
                         <li><a href="/admin/courses.php"><i class="feather-book-open"></i><span>Courses</span></a></li>
                         <li><a href="/admin/learners.php"><i class="feather-book-open"></i><span>Learner</span></a></li>
                         <li><a href="/admin/instructors.php"><i

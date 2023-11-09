@@ -48,7 +48,10 @@ if (!empty($_POST)) {
 
              // check if hashed password == user password
              if($password == $user['password']) {
-                 // if matched
+                 // if !is_active
+                 if(!$user['is_active']) {
+                    return header('Location:/limited.php'); 
+                 }
 
                  // create session
                  $_SESSION['username'] = $user['username'];

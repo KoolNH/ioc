@@ -41,12 +41,6 @@ foreach($topics as $i => $topic) {
 
 }
 
-// get instructor of this course
-$id = $course['instructor_id'];
-$sql ="SELECT * FROM users WHERE id=$id;"; 
-$result = $conn->query($sql);
-$instructor = $result->fetch();
-
 // count topics
 $course_id = $course['id'];
 $sql = "SELECT COUNT(*) AS no_topics FROM topics WHERE course_id='$course_id'";
@@ -76,6 +70,32 @@ $result = $result->fetch();
 
 $total =  $result['total'];
 $course['total'] = $total;
+
+/* instructor info */
+// get instructor of this course
+$id = $course['instructor_id'];
+$sql ="SELECT * FROM users WHERE id=$id;"; 
+$result = $conn->query($sql);
+$instructor = $result->fetch();
+
+// count courses
+$instructor_id = $instructor['id'];
+$sql = "SELECT COUNT(*) AS no_courses FROM courses WHERE instructor_id='$instructor_id'";
+$result = $conn->query($sql);
+$result = $result->fetch();
+
+$no_courses = $result['no_courses'];
+$instructor['no_courses'] = $no_courses;
+
+// count enrollments
+$instructor_id = $instructor['id']; 
+$sql = "SELECT COUNT(*) as no_enrollments FROM `enrollments` INNER JOIN courses ON enrollments.course_id = courses.id WHERE instructor_id='$instructor_id'";
+$result = $conn->query($sql);
+$result = $result->fetch();
+
+$no_enrollments = $result['no_enrollments'];
+$instructor['no_enrollments'] = $no_enrollments;
+/* END instructor info */
 
 ?>
 
@@ -148,22 +168,15 @@ $course['total'] = $total;
                             <h2 class="title"><?php echo $course['name'] ?></h2>
                             <p class="description"><?php echo $course['short_description']?></p>
     
-                            <div class="d-flex align-items-center mb--20 flex-wrap rbt-course-details-feature">
-    
-                                <div class="feature-sin total-student">
-                                    <span>616,029 students</span>
-                                </div>
-    
-                            </div>
     
                             <div class="rbt-author-meta mb--20">
                                 <div class="rbt-avater">
-                                    <a href="#">
+                                    <a href="/instructor.php?username=<?php echo $instructor['username']?>">
                                         <img src="<?php echo $instructor['avatar']?>" alt="Sophia Jaymes">
                                     </a>
                                 </div>
                                 <div class="rbt-author-info">
-                                    By <a href="/user/infor.php?id=<?php echo $instructor['id']?>"><?php echo $instructor['name'] ?></a>
+                                    By <a href="/instructor.php?username=<?php echo $instructor['username']?>"><?php echo $instructor['name'] ?></a>
                                 </div>
                             </div>
     
@@ -274,18 +287,18 @@ $course['total'] = $total;
                                     </div>
                                     <div class="media align-items-center">
                                         <div class="thumbnail">
-                                            <a href="#">
+                                            <a href="/instructor.php?username=<?php echo $instructor['username']?>">
                                                 <img src="<?php echo $instructor['avatar'] ?>"  alt="Author Images" style='min-width: 80px; max-height: 80px;'>
                                             </a>
                                         </div>
                                         <div class="media-body">
                                             <div class="author-info">
                                                 <h5 class="title">
-                                                    <a class="hover-flip-item-wrapper" href="author.html"><?php echo $instructor['name'] ?></a>
+                                                    <a class="hover-flip-item-wrapper" href="/instructor.php?username=<?php echo $instructor['username']?>"><?php echo $instructor['name'] ?></a>
                                                 </h5>                                             
                                                 <ul class="rbt-meta mb--20 mt--10">
-                                                    <li><i class="feather-users"></i>912,970 Students</li>
-                                                    <li><a href="#"><i class="feather-video"></i>16 Courses</a></li>
+                                                    <li><i class="feather-users"></i><?php echo $instructor['no_enrollments']?> Learners</li>
+                                                    <li><i class="feather-video"></i><?php echo $instructor['no_courses']?> Courses</li>
                                                 </ul>
                                             </div>
                                             <div class="content">

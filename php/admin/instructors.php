@@ -1,9 +1,8 @@
-
 <?php
-
+session_start();
 include('../inc/db-connect.php');
-
-
+include('../auth/_check-loggedin.php');
+include('../auth/_check-admin.php');
 
 
 // query db
@@ -51,6 +50,27 @@ $result = $conn->query($sql);
 $instructors = $result->fetchAll();
 
 
+// count courses
+foreach ($instructors as $i => $instructor) {
+    $instructor_id = $instructor['id'];
+    $sql = "SELECT COUNT(*) AS no_courses FROM courses WHERE instructor_id='$instructor_id'";
+    $result = $conn->query($sql);
+    $result = $result->fetch();
+
+    $no_courses = $result['no_courses'];
+    $instructors[$i]['no_courses'] = $no_courses;
+}
+
+// count enrollments
+foreach ($instructors as $i => $instructor) {
+    $instructor_id = $instructor['id']; 
+    $sql = "SELECT COUNT(*) as no_enrollments FROM `enrollments` INNER JOIN courses ON enrollments.course_id = courses.id WHERE instructor_id='$instructor_id'";
+    $result = $conn->query($sql);
+    $result = $result->fetch();
+
+    $no_enrollments = $result['no_enrollments'];
+    $instructors[$i]['no_enrollments'] = $no_enrollments;
+}
 
 ?>
 
@@ -83,6 +103,9 @@ $instructors = $result->fetchAll();
             <!-- End Side Vav -->
             <a class="rbt-close_side_menu" href="javascript:void(0);"></a>
         </header>
+
+        <?php include('../inc/message.php'); ?>
+        
         <!-- Mobile Menu Section -->
         <?php include('../inc/mobile-menu.php');?>
         <!-- Start Side Vav -->
@@ -170,10 +193,21 @@ $instructors = $result->fetchAll();
                                                                 <h4 class="rbt-card-title"><a href="course-details.html"><?php echo $instructor['name']; ?></a>
                                                                 </h4>
                                                                 <ul class="rbt-meta">
-                                                                    <li><i class="feather-book"></i>20 Courses</li>
-                                                                    <li><i class="feather-users"></i>40 Students</li>
+                                                                    <li><i class="feather-book"></i><?php echo $instructor['no_courses'] ?> Courses</li>
+                                                                    <li><i class="feather-users"></i><?php echo $instructor['no_enrollments'] ?> Students</li>
                                                                 </ul>
                                                                 
+
+                                                                <?php if ($instructor['is_active']): ?>
+                                                                    <form method="post" action="./deactive-instructor.php?id=<?php echo $instructor['id'] ?>" class="d-inline">
+                                                                        <button class="btn btn-danger btn-lg" onclick="return confirm('Are you sure?');"> Deactive </button>
+                                                                    </form> 
+                                                                <?php else: ?>
+                                                                    <small class="text-danger">Deactived</small>
+                                                                    <form method="post" action="./active-instructor.php?id=<?php echo $instructor['id'] ?>" class="d-inline">
+                                                                        <button class="btn btn-success btn-lg" onclick="return confirm('Are you sure?');"> Active </button>
+                                                                    </form>   
+                                                                <?php endif; ?>
                                                                 
                                                             </div>
                                                         </div>
@@ -195,7 +229,7 @@ $instructors = $result->fetchAll();
                                                             <li class="<?php if($page == $i) { echo 'active'; } ?>"><a href="?page=<?php echo $i; ?>&name=<?php echo $name;?>&phone=<?php echo $phone;?>"><?php echo $i;?></a></li>
                                                         <?php endfor; ?>
 
-                                                        <?php if($page != $noPages): ?>          
+                                                        <?php if($page <= $noPages): ?>          
                                                             <li><a href="?page=<?php echo $page + 1  ?>&name=<?php echo $name;?>&phone=<?php echo $phone;?>" aria-label="Next"><i class="feather-chevron-right"></i></a></li>
                                                         <?php endif; ?>    
                                                         </ul>

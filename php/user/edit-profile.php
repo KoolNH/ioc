@@ -1,7 +1,8 @@
 <?php
+session_start();
 include('../inc/db-connect.php');
-
 include('../auth/_check-loggedin.php');
+
 
 // get user with username
 $sql ="SELECT * FROM `users` WHERE username='$username' ";
@@ -54,13 +55,29 @@ if (!empty($_POST)) {
             $errors['email'] = 'Invalid email!';
         }
     }
-    
+
+    // upload avatar
+    $target_dir = "../uploads/";
+    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+    // Allow certain file formats
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif" ) {
+
+        $errors['fileToUpload'] = 'Sorry, only JPG, JPEG, PNG & GIF files are allowed.';
+    }
+
     // if valid
     if (count($errors) == 0) {
+        $avatar = '/uploads/' . basename($_FILES["fileToUpload"]["name"]);
         
         // insert user into db
-        $sql = "UPDATE `users` SET `name` = '$fullName', `phone` = '$phone', `email` = '$email' WHERE `username` = '$username';";
+        $sql = "UPDATE `users` SET `name` = '$fullName', `phone` = '$phone', `email` = '$email', avatar = '$avatar' WHERE `username` = '$username';";
         $result = $conn->query($sql);
+
+        // move temp folder to uploads 
+        move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
 
         // redirect to /enrolled courses
         header('Location: /user/profile.php');
@@ -133,25 +150,8 @@ if (!empty($_POST)) {
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <!-- Start Dashboard Top  -->
-                        <div class="rbt-dashboard-content-wrapper">
-                            <div class="tutor-bg-photo bg_image bg_image--22 height-350"></div>
-                            <!-- Start Tutor Information  -->
-                            <div class="rbt-tutor-information">
-                                <div class="rbt-tutor-information-left">
-                                    <div class="thumbnail rbt-avatars size-lg">
-                                        <img src="..//assets/images/team/avatar.jpg" alt="Instructor">
-                                    </div>
-                                    <div class="tutor-content">
-                                        <h5 class="title">John Due</h5>
-                                        
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            <!-- End Tutor Information  -->
-                        </div>
-                        <!-- End Dashboard Top  -->
+                        
+                        <?php include("./user-top.php"); ?>
                         
                         <div class="row g-5">
                             <div class="col-lg-3">
@@ -162,7 +162,7 @@ if (!empty($_POST)) {
                             
                             <div class="col-lg-9">
                                 <div class="rbt-dashboard-content bg-color-white rbt-shadow-box">
-                                    <form action="" method="post">
+                                    <form action="" method="post" enctype="multipart/form-data">
                                         <div class="content">
                                             <div class="section-title d-flex justify-content-between align-items-center">
                                                 <h4 class="rbt-title-style-3">My Profile</h4>
@@ -222,6 +222,26 @@ if (!empty($_POST)) {
                                                 </div>
                                             </div>
                                             <!-- End Profile Row  -->
+
+                                            <!-- Start Profile Row  -->
+                                            <div class="rbt-profile-row row row--15 mt--15">
+                                                <div class="col-lg-4 col-md-4">
+                                                    <div class="rbt-profile-content b2">Avatar</div>
+                                                </div>
+                                                <div class="col-lg-8 col-md-8">
+                                                    <div class="rbt-profile-content b2">
+                                                        <input type="file" name="fileToUpload" id="fileToUpload">
+                                                        
+                                                        <?php if (isset($errors['fileToUpload'])): ?>
+                                                        <small class="text-danger"><?php echo $errors['fileToUpload']; ?></small>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End Profile Row  -->
+
+
+                                            
                                             
                                             
                                             <div class="rbt-profile-row row row--15 mt--15">

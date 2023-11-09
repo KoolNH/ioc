@@ -1,4 +1,30 @@
+<?php
+session_start();
+include('../inc/db-connect.php');
+include('../auth/_check-loggedin.php');
+include('../auth/_check-admin.php');
 
+// count courses
+$sql = "SELECT COUNT(*) AS no_courses FROM courses";
+$result = $conn->query($sql);
+$result = $result->fetch();
+
+$no_courses = $result['no_courses'];
+
+// count instructors
+$sql = "SELECT COUNT(*) AS no_instructors FROM users WHERE role='instructor'";
+$result = $conn->query($sql);
+$result = $result->fetch();
+
+$no_instructors = $result['no_instructors'];
+
+// count learners
+$sql = "SELECT COUNT(*) AS no_learners FROM users WHERE role='learner'";
+$result = $conn->query($sql);
+$result = $result->fetch();
+
+$no_learners = $result['no_learners'];
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -68,7 +94,7 @@
                                                         <i class="feather-book-open"></i>
                                                     </div>
                                                     <div class="content">
-                                                        <h3 class="counter without-icon color-primary"><span class="odometer" data-count="30">00</span>
+                                                        <h3 class="counter without-icon color-primary"><span class="odometer" data-count="<?php echo $no_courses; ?>">00</span>
                                                         </h3>
                                                         <span class="rbt-title-style-2 d-block">Courses</span>
                                                     </div>
@@ -89,9 +115,9 @@
                                                         <i class="feather-users"></i>
                                                     </div>
                                                     <div class="content">
-                                                        <h3 class="counter without-icon color-pink"><span class="odometer" data-count="160">00</span>
+                                                        <h3 class="counter without-icon color-pink"><span class="odometer" data-count="<?php echo $no_learners; ?>">00</span>
                                                         </h3>
-                                                        <span class="rbt-title-style-2 d-block">Leaner</span>
+                                                        <span class="rbt-title-style-2 d-block">Leaners</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,9 +131,9 @@
                                                         <i class="feather-users"></i>
                                                     </div>
                                                     <div class="content">
-                                                        <h3 class="counter without-icon color-warning"><span class="odometer" data-count="160">00</span>
+                                                        <h3 class="counter without-icon color-warning"><span class="odometer" data-count="<?php echo $no_instructors; ?>">00</span>
                                                         </h3>
-                                                        <span class="rbt-title-style-2 d-block">Instructor</span>
+                                                        <span class="rbt-title-style-2 d-block">Instructors</span>
                                                     </div>
                                                 </div>
                                             </div>

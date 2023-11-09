@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +12,27 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<?php include('inc/css.php');?>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
+
+    <!-- CSS
+	============================================ -->
+    <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/vendor/slick.css">
+    <link rel="stylesheet" href="assets/css/vendor/slick-theme.css">
+    <link rel="stylesheet" href="assets/css/plugins/sal.css">
+    <link rel="stylesheet" href="assets/css/plugins/feather.css">
+    <link rel="stylesheet" href="assets/fontawesome-free-5.5.0-web/css/fontawesome.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/euclid-circulara.css">
+    <link rel="stylesheet" href="assets/css/plugins/swiper.css">
+    <link rel="stylesheet" href="assets/css/plugins/magnify.css">
+    <link rel="stylesheet" href="assets/css/plugins/odometer.css">
+    <link rel="stylesheet" href="assets/css/plugins/animation.css">
+    <link rel="stylesheet" href="assets/css/plugins/bootstrap-select.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/jquery-ui.css">
+    <link rel="stylesheet" href="assets/css/plugins/magnigy-popup.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/plyr.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
@@ -22,12 +44,12 @@
         <!-- End Header Top  -->
         <?php include('inc/nav.php');?>
         <!-- Start Side Vav -->
-        <?php include('../inc/side-left.php');?>
+        <?php include('inc/side-left.php');?>
         <!-- End Side Vav -->
         <a class="rbt-close_side_menu" href="javascript:void(0);"></a>
     </header>
     <!-- Mobile Menu Section -->
-    <?php include('../inc/mobile-menu.php');?>
+    <?php include('inc/mobile-menu.php');?>
     <!-- Start Side Vav -->
 
     <!-- End Side Vav -->
@@ -42,69 +64,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
- <!-- Start Dashboard Top  -->
- <div class="rbt-dashboard-content-wrapper">
-                        <div class="tutor-bg-photo bg_image bg_image--22 height-350"></div>
-                        <!-- Start Tutor Information  -->
-                        <div class="rbt-tutor-information">
-                            <div class="rbt-tutor-information-left">
-                                <div class="thumbnail rbt-avatars size-lg">
-                                    <img src="../assets/images/team/avatar.jpg" alt="Instructor">
-                                </div>
-                                <div class="tutor-content">
-                                    <h5 class="title">John Due</h5>
-                                   
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- End Tutor Information  -->
-                    </div>
-                    <!-- End Dashboard Top  -->
-
+                    
                     <div class="row g-5">
-                        <div class="col-lg-3">
-                            <!-- Start Dashboard Sidebar  -->
-                            <?php include('inc/side-bar.php');?>
-                            <!-- End Dashboard Sidebar  -->
-                        </div>
-
-                        <div class="col-lg-9">
-                        <div class="rbt-my-account-inner">
-                                        <h3>Account Details</h3>
-
-                                        <div class="account-details-form">
-                                            <form action="#">
-                                                <div class="row g-5">
-                                                    <div class="col-lg-6 col-12">
-                                                        <input id="first-name" placeholder="First Name" type="text">
-                                                    </div>
-
-                                                    <div class="col-lg-6 col-12">
-                                                        <input id="last-name" placeholder="Last Name" type="text">
-                                                    </div>
-
-                                                    <div class="col-12">
-                                                        <input id="display-name" placeholder="Display Name" type="text">
-                                                    </div>
-
-                                                    <div class="col-12">
-                                                        <input id="email-address" placeholder="Email Address" type="email">
-                                                    </div>
-
-    
-
-                                                    <div class="col-12">
-                                                        <button class="rbt-btn btn-gradient icon-hover">
-                                                            <span class="btn-text">Save Changes</span>
-                                                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                                        </button>
-                                                    </div>
-
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
+                       <h1>Your account was suspended. Pls contact administrator!</h1>
                     </div>
                 </div>
             </div>

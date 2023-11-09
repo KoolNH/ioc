@@ -1,4 +1,5 @@
 <?php session_start(); ?>
+<?php include('./inc/db-connect.php') ?>
 
 <!DOCTYPE html>
 <html lang="en">

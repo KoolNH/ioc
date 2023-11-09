@@ -4,7 +4,7 @@
 include('inc//db-connect.php');
 
 // query db
-$sql ="SELECT * FROM `users` WHERE role='instructor'";
+$sql ="SELECT * FROM `users` WHERE role='instructor' AND is_active='1' ";
 
 // search
 $name = "";
@@ -171,7 +171,7 @@ foreach ($instructors as $i => $instructor) {
                                                     <div class="col-lg-4 col-md-6 col-12">
                                                         <div class="rbt-card variation-01 rbt-hover">
                                                             <div class="rbt-card-img">
-                                                                <a href="/user/profile.php?username=<?php echo $instructor['username']?>">
+                                                                <a href="/instructor.php?username=<?php echo $instructor['username']?>">
                                                                     <img src="<?php echo $instructor['avatar'];?>" alt="Card image">
                                                                 </a>
                                                             </div>
@@ -180,7 +180,7 @@ foreach ($instructors as $i => $instructor) {
                                                                     
                                                                     
                                                                 </div>
-                                                                <h4 class="rbt-card-title"><a href="/user/profile.php?username=<?php echo $instructor['username']?>"><?php echo $instructor['name']; ?></a>
+                                                                <h4 class="rbt-card-title"><a href="/instructor.php?username=<?php echo $instructor['username']?>"><?php echo $instructor['name']; ?></a>
                                                                 </h4>
                                                                 <ul class="rbt-meta">
                                                                     <li><i class="feather-book"></i><?php echo $instructor['no_courses'] ?> Courses</li>
@@ -208,7 +208,7 @@ foreach ($instructors as $i => $instructor) {
                                                             <li class="<?php if($page == $i) { echo 'active'; } ?>"><a href="?page=<?php echo $i; ?>&name=<?php echo $name;?>&phone=<?php echo $phone;?>"><?php echo $i;?></a></li>
                                                         <?php endfor; ?>
 
-                                                        <?php if($page != $noPages): ?>          
+                                                        <?php if($page <= $noPages): ?>          
                                                             <li><a href="?page=<?php echo $page + 1  ?>&name=<?php echo $name;?>&phone=<?php echo $phone;?>" aria-label="Next"><i class="feather-chevron-right"></i></a></li>
                                                         <?php endif; ?>    
                                                         </ul>

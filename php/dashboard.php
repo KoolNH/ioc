@@ -1,6 +1,8 @@
 <?php
-    include('inc/db-connect.php');
-    include('auth/_check-loggedin.php');
+session_start();
+include('./inc/db-connect.php');
+include('./auth/_check-loggedin.php');
+
 
     // count my courses
     $id = $loggedInUser['id'];
@@ -19,6 +21,16 @@
 
     $no_enrolled_courses = $result['no_enrolled_courses'];
     $loggedInUser['no_enrolled_courses'] = $no_enrolled_courses;
+
+    // count enrollments
+    $instructor_id = $loggedInUser['id']; 
+    $sql = "SELECT COUNT(*) as no_learners FROM `enrollments` INNER JOIN courses ON enrollments.course_id = courses.id WHERE instructor_id='$instructor_id'";
+    $result = $conn->query($sql);
+    $result = $result->fetch();
+
+    $no_learners = $result['no_learners'];
+    $loggedInUser['no_learners'] = $no_learners;
+
 ?>
 
 <!DOCTYPE html>
@@ -84,44 +96,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <!-- Start Dashboard Top  -->
-                    <div class="rbt-dashboard-content-wrapper">
-                        <div class="tutor-bg-photo bg_image bg_image--22 height-350"></div>
-                        <!-- Start Tutor Information  -->
-                        <div class="rbt-tutor-information">
-                            <div class="rbt-tutor-information-left">
-                                <div class="thumbnail rbt-avatars size-lg">
-                                    <img src="assets/images/team/avatar.jpg" alt="Instructor">
-                                </div>
-                                <div class="tutor-content">
-                                    <h5 class="title">John Due</h5>
-                                    <div class="rbt-review">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                        <span class="rating-count"> (15 Reviews)</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="rbt-tutor-information-right">
-                                <div class="tutor-btn">
-                                    <a class="rbt-btn btn-md hover-icon-reverse" href="create-course.html">
-                                        <span class="icon-reverse-wrapper">
-                        <span class="btn-text">Create a New Course</span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Tutor Information  -->
-                    </div>
-                    <!-- End Dashboard Top  -->
+                        <?php include("./user/user-top.php"); ?>
+                    
 
                     <div class="row g-5">
                         <div class="col-lg-3">
@@ -155,7 +131,6 @@
                                             </div>
                                         </div>
                                         <!-- End Single Card  -->
-                                        <?php endif; ?>
 
                                         <!-- Start Single Card  -->
                                         <div class="col-lg-4 col-md-4 col-sm-6 col-12">
@@ -165,14 +140,15 @@
                                                         <i class="feather-users"></i>
                                                     </div>
                                                     <div class="content">
-                                                        <h3 class="counter without-icon color-pink"><span class="odometer" data-count="160">00</span>
+                                                        <h3 class="counter without-icon color-pink"><span class="odometer" data-count="<?php echo $loggedInUser['no_learners'] ?>"><?php echo $loggedInUser['no_learners'] ?></span>
                                                         </h3>
-                                                        <span class="rbt-title-style-2 d-block">Leaner</span>
+                                                        <span class="rbt-title-style-2 d-block">Leaners</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- End Single Card  -->
+                                        <?php endif; ?>
 
                                         <!-- Start Single Card  -->
                                         <div class="col-lg-4 col-md-4 col-sm-6 col-12">

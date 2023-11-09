@@ -1,8 +1,8 @@
 <?php
-
-
+session_start();
 include('../inc/db-connect.php');
 include('../auth/_check-loggedin.php');
+
 
 // get course with id
 $id = $_GET['id'];
@@ -150,7 +150,7 @@ if (isset($topics[0]['videos'][0])) {
               </div>
               <div class="lesson-top-right">
                 <div class="rbt-btn-close">
-                  <a href="course/enrolled-courses.php" title="Go Back to Course" class="rbt-round-btn"><i class="feather-x"></i></a>
+                  <a href="/course/enrolled-courses.php" title="Go Back to Course" class="rbt-round-btn"><i class="feather-x"></i></a>
                 </div>
               </div>
             </div>
