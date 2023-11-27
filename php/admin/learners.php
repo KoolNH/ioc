@@ -192,11 +192,15 @@ foreach ($learners as $i => $learner) {
                                                                     <form method="post" action="./deactive-learner.php?id=<?php echo $learner['id'] ?>" class="d-inline">
                                                                         <button class="btn btn-danger btn-lg" onclick="return confirm('Are you sure?');"> Deactive </button>
                                                                     </form> 
+                                                                    <form method="post" action="./promote-instructor.php?id=<?php echo $learner['id'] ?>" class="d-inline">
+                                                                        <button class="btn btn-success btn-lg" onclick="return confirm('Are you sure?');"> Promote instructor </button>
+                                                                    </form> 
                                                                 <?php else: ?>
                                                                     <small class="text-danger">Deactived</small>
                                                                     <form method="post" action="./active-learner.php?id=<?php echo $learner['id'] ?>" class="d-inline">
                                                                         <button class="btn btn-success btn-lg" onclick="return confirm('Are you sure?');"> Active </button>
-                                                                    </form>   
+                                                                    </form>  
+                                                                    
                                                                 <?php endif; ?>
 
                                                             </div>
