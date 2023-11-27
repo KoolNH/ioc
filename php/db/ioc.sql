@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 27, 2023 lúc 12:41 PM
+-- Thời gian đã tạo: Th10 27, 2023 lúc 02:06 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -119,9 +119,9 @@ INSERT INTO `users` (`id`, `role`, `username`, `password`, `name`, `avatar`, `ph
 (1, 'admin', 'admin', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Jack', '/uploads/z4496152781801_16bcb7e129b345ecdd326d558212b54a.jpg', '096152341023', 'kool22@gmail.com', '1sdassd123e12sad', '2023-10-24 13:54:08', 1),
 (2, 'learner', 'learner', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Kool', 'https://rainbowit.net/html/histudy/assets/images/course/course-01.jpg', '0944602000', '', '', '2023-10-24 13:54:08', 1),
 (4, 'instructor', 'instructor', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Denis', '/uploads/dsol4d-58331b5c-003f-4371-9048-7b3075d3d6df.jpg', '1234567890', 'ab@ab.ab', '', '2023-10-24 13:54:08', 1),
-(5, 'learner', 'dennis', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Dennis', 'https://rainbowit.net/html/histudy/assets/images/course/course-01.jpg', '+8463654246', '', '', '2023-10-24 13:54:08', 1),
+(5, 'instructor', 'dennis', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Dennis', 'https://rainbowit.net/html/histudy/assets/images/course/course-01.jpg', '+8463654246', '', '', '2023-10-24 13:54:08', 1),
 (6, 'instructor', 'kool', '7ab515d12bd2cf431745511ac4ee13fed15ab578', 'Kool', 'https://static1.thegamerimages.com/wordpress/wp-content/uploads/2022/10/Overwatch-2-Genji.jpg', '6325498', '', '', '2023-10-24 13:54:08', 1),
-(21, 'learner', 'kool2', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '', '', '0961688824', '', '', '2023-10-24 13:54:08', 1),
+(21, 'instructor', 'kool2', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '', '', '0961688824', '', '', '2023-10-24 13:54:08', 1),
 (23, 'learner', '1234655', 'a9993e364706816aba3e25717850c26c9cd0d89d', '', '', '1256324102', 'asdsad@gmail.com', '', '2023-10-24 14:04:36', 1);
 
 -- --------------------------------------------------------
@@ -133,7 +133,7 @@ INSERT INTO `users` (`id`, `role`, `username`, `password`, `name`, `avatar`, `ph
 CREATE TABLE `videos` (
   `id` int(10) UNSIGNED NOT NULL,
   `title` varchar(255) NOT NULL,
-  `url` varchar(255) NOT NULL,
+  `url` text NOT NULL,
   `topic_id` int(10) UNSIGNED NOT NULL,
   `duration_in_minute` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -143,11 +143,11 @@ CREATE TABLE `videos` (
 --
 
 INSERT INTO `videos` (`id`, `title`, `url`, `topic_id`, `duration_in_minute`) VALUES
-(1, 'video 1 ', 'abc', 1, 10),
-(2, 'video 2', '123asdc', 1, 30),
-(3, 'video 1', 'url', 2, 15),
-(9, 'test', 'https://www.youtube.com/watch?v=pC_XezrwTsk', 8, 10),
-(11, '123', 'https://www.youtube.com/watch?v=pC_XezrwTsk', 10, 14);
+(1, 'video 1 ', 'error', 1, 10),
+(2, 'video 2', 'error', 1, 30),
+(3, 'video 1', 'error', 2, 15),
+(9, 'test', 'error', 8, 10),
+(11, '123', '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/99jkGbsgp3o?si=f5eLKC3oqW6BPgUW\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>', 10, 14);
 
 --
 -- Chỉ mục cho các bảng đã đổ
