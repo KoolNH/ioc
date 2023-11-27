@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('./inc/db-connect.php');
 
 // get user with username
@@ -11,6 +12,12 @@ $username = $_GET['username'];
 $sql ="SELECT * FROM `users` WHERE username='$username' ";
 $result = $conn->query($sql);
 $user = $result->fetch();
+
+// id not exist => not found
+if ($user == false) {
+    header('Location: /404.php');
+}
+
 
 $id = $user['id'];
 $sql = "SELECT * FROM `courses` WHERE `instructor_id`=$id";

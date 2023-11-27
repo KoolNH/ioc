@@ -193,7 +193,7 @@ foreach ($courses as $i => $course) {
                                                     <div class="col-lg-4 col-md-6 col-12">
                                                         <div class="rbt-card variation-01 rbt-hover">
                                                             <div class="rbt-card-img">
-                                                                <a href="/course/edit-course.php?id=<?php echo $course['id'] ?>">
+                                                                <a href="/course.php?id=<?php echo $course['id'] ?>">
                                                                     <img src="<?php echo $course['image']  ?>" alt="Card image">
                                                                 </a>
                                                             </div>
@@ -202,7 +202,7 @@ foreach ($courses as $i => $course) {
                                                                     
                                                                     
                                                                 </div>
-                                                                <h4 class="rbt-card-title"><a href="/course/edit-course.php?id=<?php echo $course['id'] ?>"><?php echo $course['name'] ?></a>
+                                                                <h4 class="rbt-card-title"><a href="/course.php?id=<?php echo $course['id'] ?>"><?php echo $course['name'] ?></a>
                                                                 </h4>
                                                                 <ul class="rbt-meta">
                                                                     <li><i class="feather-book"></i><?php echo $course['no_topics']; ?> Topics</li>

@@ -38,6 +38,10 @@ if (isset($topics[0]['videos'][0])) {
     $sql ="SELECT * FROM videos WHERE id='$video_id';"; 
     $result = $conn->query($sql);
     $current_video = $result->fetch();
+
+    if ($current_video == false){
+      header('Location: /503.php');
+    }
   }
 }
 
