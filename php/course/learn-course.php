@@ -2,6 +2,7 @@
 session_start();
 include('../inc/db-connect.php');
 include('../auth/_check-loggedin.php');
+include('../auth/_check-enrolled.php');
 
 
 // get course with id
@@ -34,7 +35,7 @@ if (isset($topics[0]['videos'][0])) {
   
   if (isset($_GET['video_id'])) {
     $video_id = $_GET['video_id'];
-    $sql ="SELECT * FROM videos WHERE id=$video_id;"; 
+    $sql ="SELECT * FROM videos WHERE id='$video_id';"; 
     $result = $conn->query($sql);
     $current_video = $result->fetch();
   }
@@ -156,13 +157,9 @@ if (isset($topics[0]['videos'][0])) {
             </div>
             <div class="inner">
               <div class="plyr plyr--full-ui plyr--video plyr--youtube plyr--fullscreen-enabled plyr--paused plyr--stopped plyr__poster-enabled"><div class="plyr__controls"><button class="plyr__controls__item plyr__control" type="button" data-plyr="play" aria-pressed="false" aria-label="Play, Hands Typing On Macbook - Free HD Stock Footage (No Copyright) Office Work Working"><svg class="icon--pressed" aria-hidden="true" focusable="false"><use xlink:href="#plyr-pause"></use></svg><svg class="icon--not-pressed" aria-hidden="true" focusable="false"><use xlink:href="#plyr-play"></use></svg><span class="label--pressed plyr__sr-only">Pause</span><span class="label--not-pressed plyr__sr-only">Play</span></button><div class="plyr__controls__item plyr__progress__container"><div class="plyr__progress"><input data-plyr="seek" type="range" min="0" max="100" step="0.01" value="0" autocomplete="off" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="37" aria-valuenow="0" id="plyr-seek-8555" aria-valuetext="00:00 of 00:37" style="--value: 0%;" seek-value="66.04215456674473"><progress class="plyr__progress__buffer" min="0" max="100" value="0" role="progressbar" aria-hidden="true">% buffered</progress><span class="plyr__tooltip" style="left: 66.5531%;">00:24</span></div></div><div class="plyr__controls__item plyr__time--current plyr__time" aria-label="Current time" role="timer">00:37</div><div class="plyr__controls__item plyr__volume"><button type="button" class="plyr__control" data-plyr="mute" aria-pressed="false"><svg class="icon--pressed" aria-hidden="true" focusable="false"><use xlink:href="#plyr-muted"></use></svg><svg class="icon--not-pressed" aria-hidden="true" focusable="false"><use xlink:href="#plyr-volume"></use></svg><span class="label--pressed plyr__sr-only">Unmute</span><span class="label--not-pressed plyr__sr-only">Mute</span></button><input data-plyr="volume" type="range" min="0" max="1" step="0.05" value="1" autocomplete="off" role="slider" aria-label="Volume" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" id="plyr-volume-8555" aria-valuetext="100.0%" style="--value: 100%;"></div><button class="plyr__controls__item plyr__control" type="button" data-plyr="fullscreen" aria-pressed="false"><svg class="icon--pressed" aria-hidden="true" focusable="false"><use xlink:href="#plyr-exit-fullscreen"></use></svg><svg class="icon--not-pressed" aria-hidden="true" focusable="false"><use xlink:href="#plyr-enter-fullscreen"></use></svg><span class="label--pressed plyr__sr-only">Exit fullscreen</span><span class="label--not-pressed plyr__sr-only">Enter fullscreen</span></button></div>
-              <div class="plyr__video-wrapper plyr__video-embed" style="aspect-ratio: 16 / 9;"><iframe id="youtube-5465" frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" title="Player for Hands Typing On Macbook - Free HD Stock Footage (No Copyright) Office Work Working" width="640" height="360" src="https://www.youtube.com/embed/qKzhrXqT6oE?autoplay=0&amp;controls=0&amp;disablekb=1&amp;playsinline=1&amp;cc_load_policy=0&amp;cc_lang_pref=auto&amp;widget_referrer=https%3A%2F%2Frainbowit.net%2Fhtml%2Fhistudy%2Flesson.html&amp;rel=0&amp;showinfo=0&amp;iv_load_policy=3&amp;modestbranding=1&amp;customControls=true&amp;noCookie=false&amp;enablejsapi=1&amp;origin=https%3A%2F%2Frainbowit.net&amp;widgetid=1"></iframe><div class="plyr__poster" style="background-image: url(&quot;https://i.ytimg.com/vi/qKzhrXqT6oE/maxresdefault.jpg&quot;);"></div></div>
-              <button type="button" class="plyr__control plyr__control--overlaid" data-plyr="play" aria-pressed="false" aria-label="Play, Hands Typing On Macbook - Free HD Stock Footage (No Copyright) Office Work Working"><svg aria-hidden="true" focusable="false"><use xlink:href="#plyr-play"></use></svg><span class="plyr__sr-only">Play</span></button></div>
-              
-              
-              
-              
-            </div>
+              <div class="plyr__video-wrapper plyr__video-embed" style="aspect-ratio: 16 / 9;">
+                <?php echo $current_video['url']; ?>
+              </div>
           </div>
           <?php endif; ?>
         </div>
