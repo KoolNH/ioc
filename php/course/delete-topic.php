@@ -11,6 +11,16 @@ $sql ="SELECT * FROM `topics` WHERE id='$id' ";
 $result = $conn->query($sql);
 $topic = $result->fetch();
 
+/* check if my course */
+// get course with id
+$course_id =  $topic['course_id'];
+$sql ="SELECT * FROM `courses` WHERE id='$course_id' ";
+$result = $conn->query($sql);
+$course = $result->fetch();
+
+include('../auth/_check-mycourse.php');
+/* END check if my course */
+
 $sql = "DELETE FROM topics WHERE id='$id'";
 $result = $conn->query($sql);
 
