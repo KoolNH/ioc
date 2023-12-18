@@ -226,7 +226,7 @@ $instructor['no_enrollments'] = $no_enrollments;
                                     <div class="section-title">
                                         <h4 class="rbt-title-style-3">What you'll learn</h4>
                                     </div>
-                                        <?php echo $instructor['description'] ?>
+                                        <?php echo $course['description'] ?>
                                 </div>
                                 <div class="rbt-show-more-btn">Show More</div>
                             </div>
@@ -332,7 +332,7 @@ $instructor['no_enrollments'] = $no_enrollments;
                                         <img class="w-100 rbt-radius" src="<?php echo $course['image']; ?>" alt="Video Images">
                                         <div class="position-to-top">
                                             <span class="rbt-btn rounded-player-2 with-animation">
-                                                <span class="play-icon"></span>
+                                                <span class="play-icon" ></span>
                                             </span>
                                         </div>
                                         <span class="play-view-text d-block color-white"><i class="feather-eye"></i> Preview this course</span>

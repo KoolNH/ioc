@@ -154,7 +154,9 @@ foreach ($courses as $i => $course) {
                                                 <div class="section-title d-flex justify-content-between align-items-center">
                                                 <h4 class="rbt-title-style-3">My courses</h4>
 
-                                                <a href='/course/new-course.php' class='btn btn-primary btn-lg'>New course</a>
+                                                <a href='/course/new-course.php' class='btn btn-primary btn-lg'>New course </a>
+                                                
+                                                
                                             </div>
                                             
                                             <form action="" class="row row--15">
@@ -194,7 +196,7 @@ foreach ($courses as $i => $course) {
                                                         <div class="rbt-card variation-01 rbt-hover">
                                                             <div class="rbt-card-img">
                                                                 <a href="/course.php?id=<?php echo $course['id'] ?>">
-                                                                    <img src="<?php echo $course['image']  ?>" alt="Card image">
+                                                         
                                                                 </a>
                                                             </div>
                                                             <div class="rbt-card-body">
